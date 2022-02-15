@@ -1,2 +1,2 @@
 # Szatyor
-Kinect segítségével irányítható játék.
+<h1>Szatyor</h1>
