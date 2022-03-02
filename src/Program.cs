@@ -8,18 +8,28 @@ using System.Linq;
 
 public class Program : MonoBehaviour
 {
+    public GameObject armLeft, armRight;
     private KinectSensor kinect = null;
     private BodyFrameReader bodyReader = null;
     Body[] bodies = null;
+    int a = 0;
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("hello");
+        armLeft = GameObject.Find("LeftArm");
+        armRight = GameObject.Find("RightArm");
         KinectSensor sensor = KinectSensor.GetDefault();
         sensor.Open();
         bodyReader = sensor.BodyFrameSource.OpenReader();
         bodies = new Body[sensor.BodyFrameSource.BodyCount];
         bodyReader.FrameArrived += BodyReader_FrameArrived;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
     }
 
     void BodyReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -35,52 +45,12 @@ public class Program : MonoBehaviour
                     bodies[0] = body;
 
                 // Debug.Log(body.Lean.X);
-                Debug.Log(body.Joints.First(x => x.Key == JointType.HandLeft).Value.Position.Y);
+                float ypos = body.Joints.First(x => x.Key == JointType.HandLeft).Value.Position.Y;
+                float ypos2 = body.Joints.First(x => x.Key == JointType.HandRight).Value.Position.Y;
+                armLeft.transform.Rotate(ypos*13, 0, 0);
+                armRight.transform.Rotate(ypos2 * 13, 0, 0);
+                Debug.Log(ypos);
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        /*BodySourceManager a = new BodySourceManager();
-        Body[] bodies = a.GetData();
-        Debug.Log(bodies);*/
-    }
-
-    private static double VectorLength(CameraSpacePoint point)
-    {
-        var result = Math.Pow(point.X, 2) + Math.Pow(point.Y, 2) + Math.Pow(point.Z, 2);
-
-        result = Math.Sqrt(result);
-
-        return result;
-    }
-
-    private static Body FindClosestBody(BodyFrame bodyFrame)
-    {
-        Body result = null;
-        double closestBodyDistance = double.MaxValue;
-
-        Body[] bodies = new Body[bodyFrame.BodyCount];
-        bodyFrame.GetAndRefreshBodyData(bodies);
-
-        foreach (var body in bodies)
-        {
-            if (body.IsTracked)
-            {
-                var currentLocation = body.Joints[JointType.SpineBase].Position;
-
-                var currentDistance = VectorLength(currentLocation);
-
-                if (result == null || currentDistance < closestBodyDistance)
-                {
-                    result = body;
-                    closestBodyDistance = currentDistance;
-                }
-            }
-        }
-
-        return result;
     }
 }
