@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\Models"
   ],
-  "SelectedNode": "\\C:\\Users\\Admin\\Source\\Repos\\Szatyor",
+  "SelectedNode": "\\src\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
