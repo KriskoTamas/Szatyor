@@ -9,3 +9,6 @@
   <li>C#</li>
   <li>Unity</li>
  </ul>
+
+<h2>🕹 A játék menete</h2>
+<p></p>
