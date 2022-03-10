@@ -19,12 +19,12 @@ public class Program : MonoBehaviour
     // Body[] bodies = null;
     // int a = 0;
 
-    public GameObject Skeleton, Bandit, Cube;
+    // public GameObject Skeleton, Bandit, Cube;
     void Start()
     {
         Debug.Log("This is a startup message.");
         // Instantiate(Cube, new Vector3(0.5f, 0.5f, 0.5f), Quaternion.identity);
-        Skeleton = Instantiate(Skeleton, new Vector3(0, 0, 0), new Quaternion(0, 180.0f, 0, 0));
+        // Skeleton = Instantiate(Skeleton, new Vector3(0, 0, 0), new Quaternion(0, 180.0f, 0, 0));
 
         // initObjects();
            
