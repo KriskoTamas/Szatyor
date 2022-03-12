@@ -52,7 +52,15 @@ public class PlayerController : MonoBehaviour
         else if(lane == 2)
             targetPosition += Vector3.right * laneDistance;
 
-        transform.position = Vector3.Lerp(transform.position, targetPosition, 80 * Time.fixedDeltaTime);
+        if (transform.position == targetPosition) // no changes are made
+            return;
+
+        Vector3 diff = targetPosition - transform.position;
+        Vector3 moveDir = diff.normalized * Time.fixedDeltaTime * 4;
+        if (moveDir.sqrMagnitude < diff.sqrMagnitude)
+            controller.Move(moveDir);
+        else
+            controller.Move(diff);
     }
 
     private void FixedUpdate()

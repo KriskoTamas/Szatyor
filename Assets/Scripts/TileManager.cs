@@ -6,7 +6,7 @@ public class TileManager : MonoBehaviour
 {
     public GameObject[] tiles;
     public float zSpawn = 0;
-    public float tileLength = 10;
+    public float tileLength = 30;
     public int numberOfTiles = 6;
 
     public Transform playerTransform;
