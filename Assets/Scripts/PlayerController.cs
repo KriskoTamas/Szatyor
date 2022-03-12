@@ -7,9 +7,9 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 direction;
-    public float forwardSpeed;
-    public float laneDistance;
-    public float jumpForce = 5;
+    public float forwardSpeed = 4;
+    public float laneDistance = 3;
+    public float jumpForce = 10;
     public float gravity = -5;
     private int lane = 1; // 0: left, 1: middle, 2: right
 

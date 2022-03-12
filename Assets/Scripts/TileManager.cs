@@ -5,11 +5,10 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public GameObject[] tiles;
+    public Transform playerTransform;
     public float zSpawn = 0;
     public float tileLength = 30;
-    public int numberOfTiles = 6;
-
-    public Transform playerTransform;
+    public int numberOfTiles = 7;
 
     private List<GameObject> activeTiles = new List<GameObject>();
 
