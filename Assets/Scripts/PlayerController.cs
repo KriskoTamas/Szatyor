@@ -9,8 +9,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
     public float forwardSpeed = 4;
     public float laneDistance = 3;
-    public float jumpForce = 10;
-    public float gravity = -5;
+    public float jumpForce = 12;
+    public float gravity = -40;
     private int lane = 1; // 0: left, 1: middle, 2: right
 
     void Start()
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            direction.y += gravity * Time.fixedDeltaTime;
+            direction.y += gravity * Time.deltaTime;
         }
 
         Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
             return;
 
         Vector3 diff = targetPosition - transform.position;
-        Vector3 moveDir = diff.normalized * Time.fixedDeltaTime * 4;
+        Vector3 moveDir = diff.normalized * Time.deltaTime * 10;
         if (moveDir.sqrMagnitude < diff.sqrMagnitude)
             controller.Move(moveDir);
         else
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        controller.Move(direction * Time.fixedDeltaTime);
+        controller.Move(direction * Time.deltaTime);
     }
 
     private void Jump()
