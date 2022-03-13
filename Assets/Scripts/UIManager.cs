@@ -5,16 +5,25 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static bool gameOver;
     public Text scoreText;
+    public GameObject gameOverPanel;
+    public GameObject player;
     void Start()
     {
-        scoreText = GetComponent<Text>();
+        gameOver = false;
+        Time.timeScale = 1;
+        player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        int distance = (int) GameObject.Find("Player").transform.position.z;
+        int distance = (int) player.transform.position.z;
         scoreText.text = distance + " m";
+        if (gameOver)
+        {
+            Time.timeScale = 0;
+            gameOverPanel.SetActive(true);
+        }
     }
 }
