@@ -10,6 +10,13 @@ public class UIManager : MonoBehaviour
     public static bool showMainPage = true;
     public GameObject mainMenuPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
     public Text scoreText;
+
+    private int frameCount = 0;
+    private float timeCount = 0;
+    private float refreshTime = 0.1f;
+    [SerializeField]
+    private Text framerateText;
+
     void Start()
     {
         mainMenuPanel.SetActive(showMainPage);
@@ -29,6 +36,24 @@ public class UIManager : MonoBehaviour
         {
             PauseResumeGame();
         }
+
+        if(timeCount < refreshTime)
+        {
+            timeCount += Time.deltaTime;
+            frameCount++;
+        }
+        else
+        {
+            float fps = frameCount / timeCount;
+            frameCount = 0;
+            timeCount = 0;
+            framerateText.text = "FPS: " + fps.ToString("n2");
+        }
+    }
+
+    private void CalculateFPS()
+    {
+
     }
 
     public void StartGame()

@@ -84,10 +84,22 @@ public class PlayerController : MonoBehaviour
     {
         if(hit.transform.tag == "Obstacle")
         {
-            //Debug.Log("hit gameover: " + UIManager.gameOver);
+            //Debug.Log("hit");
             Time.timeScale = 0;
             UIManager.gameOver = true;
             gameOverPanel.SetActive(true);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("OnCollisionEnter");
+        ContactPoint point = collision.GetContact(0);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("OnTriggerEnter");
+    }
+
 }
