@@ -5,26 +5,30 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public GameObject[] tiles;
-    public Transform playerTransform;
     public float zSpawn = 0;
-    public float tileLength = 30;
-    public int numberOfTiles = 7;
+    private float tileLength = 30;
+    private int numberOfTiles = 7;
 
     private List<GameObject> activeTiles = new List<GameObject>();
 
     void Start()
     {
-        for (int i = 0; i < numberOfTiles; i++)
-        {
-            SpawnTile(0);
-        }
+        initTiles();
     }
 
     void Update()
     {
-        if (playerTransform.position.z - tileLength > zSpawn - (numberOfTiles * tileLength)){
-            SpawnTile(0);
+        if (PlayerController.playerTransform.position.z - tileLength > zSpawn - (numberOfTiles * tileLength)){
+            SpawnTile(Random.Range(0, tiles.Length));
             DeleteTile();
+        }
+    }
+
+    public void initTiles()
+    {
+        for (int i = 0; i < numberOfTiles; i++)
+        {
+            SpawnTile(Random.Range(0, tiles.Length));
         }
     }
 
@@ -39,5 +43,14 @@ public class TileManager : MonoBehaviour
     {
         Destroy(activeTiles[0]);
         activeTiles.RemoveAt(0);
+    }
+
+    public void DeleteTiles()
+    {
+        for (int i = 0; i < activeTiles.Count; i++)
+        {
+            Destroy(activeTiles[i]);
+            activeTiles.RemoveAt(i);
+        }
     }
 }

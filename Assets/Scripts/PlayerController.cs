@@ -7,60 +7,67 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 direction;
-    public float forwardSpeed = 4;
-    public float laneDistance = 3;
-    public float jumpForce = 12;
-    public float gravity = -40;
+    public GameObject gameOverPanel;
+    public static Transform playerTransform;
+    public static float forwardSpeed = 4;
+    public static float laneDistance = 3;
+    public static float jumpForce = 14;
+    public static float gravity = -40;
     private int lane = 1; // 0: left, 1: middle, 2: right
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        playerTransform = GameObject.Find("Player").transform;
     }
 
     void Update()
     {
-        direction.z = forwardSpeed;
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (UIManager.gameStarted)
         {
-            lane--;
-            if(lane < 0)
-                lane = 0;
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            lane++;
-            if (lane > 2)
-                lane = 2;
-        }
-
-        if (controller.isGrounded)
-        {
-            if (Input.GetKeyDown(KeyCode.UpArrow)){
-                Jump();
+            direction.z = forwardSpeed;
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                lane--;
+                if (lane < 0)
+                    lane = 0;
             }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                lane++;
+                if (lane > 2)
+                    lane = 2;
+            }
+
+            if (controller.isGrounded)
+            {
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    Jump();
+                }
+            }
+            else
+            {
+                direction.y += gravity * Time.deltaTime;
+            }
+
+            Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
+
+            if (lane == 0)
+                targetPosition += Vector3.left * laneDistance;
+            else if (lane == 2)
+                targetPosition += Vector3.right * laneDistance;
+
+            if (transform.position == targetPosition) // no changes are made
+                return;
+
+            Vector3 diff = targetPosition - transform.position;
+            Vector3 moveDir = diff.normalized * Time.deltaTime * 10;
+            if (moveDir.sqrMagnitude < diff.sqrMagnitude)
+                controller.Move(moveDir);
+            else
+                controller.Move(diff);
         }
-        else
-        {
-            direction.y += gravity * Time.deltaTime;
-        }
-
-        Vector3 targetPosition = transform.position.z * transform.forward + transform.position.y * transform.up;
-
-        if (lane == 0)
-            targetPosition += Vector3.left * laneDistance;
-        else if(lane == 2)
-            targetPosition += Vector3.right * laneDistance;
-
-        if (transform.position == targetPosition) // no changes are made
-            return;
-
-        Vector3 diff = targetPosition - transform.position;
-        Vector3 moveDir = diff.normalized * Time.deltaTime * 10;
-        if (moveDir.sqrMagnitude < diff.sqrMagnitude)
-            controller.Move(moveDir);
-        else
-            controller.Move(diff);
     }
 
     private void FixedUpdate()
@@ -77,7 +84,10 @@ public class PlayerController : MonoBehaviour
     {
         if(hit.transform.tag == "Obstacle")
         {
+            //Debug.Log("hit gameover: " + UIManager.gameOver);
+            Time.timeScale = 0;
             UIManager.gameOver = true;
+            gameOverPanel.SetActive(true);
         }
     }
 }
