@@ -82,24 +82,25 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        if(hit.transform.tag == "Obstacle")
-        {
-            //Debug.Log("hit");
-            Time.timeScale = 0;
-            UIManager.gameOver = true;
-            gameOverPanel.SetActive(true);
-        }
+        print("OnControllerColliderHit");
+        //if(hit.transform.tag == "Obstacle")
+        //{
+        //    //Debug.Log("hit");
+        //    Time.timeScale = 0;
+        //    UIManager.gameOver = true;
+        //    gameOverPanel.SetActive(true);
+        //}
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("OnCollisionEnter");
+        print("OnCollisionEnter");
         ContactPoint point = collision.GetContact(0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter");
+        print("OnTriggerEnter");
     }
 
 }
