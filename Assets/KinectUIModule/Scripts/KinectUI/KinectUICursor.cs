@@ -15,6 +15,7 @@ public class KinectUICursor : AbstractKinectUICursor
     public override void Start()
     {
         base.Start();
+        print("start metódus");
         _initScale = transform.localScale;
         _image.color = new Color(1f, 1f, 1f, 0f);
     }
