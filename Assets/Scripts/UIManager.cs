@@ -19,12 +19,13 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        mainMenuPanel.SetActive(showMainPage);
-        gameOverlayPanel.SetActive(!showMainPage);
-        Time.timeScale = showMainPage ? 0 : 1;
-        gameStarted = !showMainPage;
-        gameOver = false;
-        gamePaused = false;
+        //showMainPage = false;
+        //mainMenuPanel.SetActive(showMainPage);
+        //gameOverlayPanel.SetActive(!showMainPage);
+        //Time.timeScale = showMainPage ? 0 : 1;
+        //gameStarted = !showMainPage;
+        //gameOver = false;
+        //gamePaused = false;
     }
 
     void Update()

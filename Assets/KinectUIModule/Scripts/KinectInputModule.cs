@@ -46,7 +46,6 @@ public class KinectInputModule : BaseInputModule
     {
         for (int i = 0; i < _inputData.Length; i++)
         {
-            //refresca los datos de entrada del kinect
             _inputData[i].UpdateComponent(body);
         }
     }
@@ -277,17 +276,11 @@ public class KinectInputData
         CurrentHandState = GetStateFromJointType(body, handType);
         IsTracking = true;
     }
-
-
     // Converts hand position to screen coordinates
     public Vector3 GetHandScreenPosition()
     {
-        //posición de las manos
         return Camera.main.WorldToScreenPoint(new Vector3(HandPosition.x, HandPosition.y, HandPosition.z - handScreenPositionMultiplier));
     }
-
-
-
     // Get hand state data from kinect body
     private HandState GetStateFromJointType(Body body, JointType type)
     {
