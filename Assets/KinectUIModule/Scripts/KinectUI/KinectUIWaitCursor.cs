@@ -20,7 +20,7 @@ public class KinectUIWaitCursor : AbstractKinectUICursor {
         transform.position = _data.GetHandScreenPosition();
         if(_data.IsHovering)
         {
-            Debug.Log("hovering, object: " + _data.HoveringObject.name + ", fillAmount: " + _data.WaitOverAmount);
+            //print("hovering, object: " + _data.HoveringObject.name + ", fillAmount: " + _data.WaitOverAmount);
             _image.fillAmount = _data.WaitOverAmount;
         }
         else

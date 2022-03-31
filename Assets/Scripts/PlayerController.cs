@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
     public GameObject gameOverPanel;
     public static Transform playerTransform;
+    public static float playerSpeed = 4;
     public static float forwardSpeed = 4;
     public static float laneDistance = 3;
     public static float jumpForce = 14;
