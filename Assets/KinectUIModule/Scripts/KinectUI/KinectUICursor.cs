@@ -8,7 +8,7 @@ public class KinectUICursor : AbstractKinectUICursor
     public Color normalColor = new Color(1f, 1f, 1f, 0.5f);
     public Color hoverColor = new Color(1f, 1f, 1f, 1f);
     public Color clickColor = new Color(1f, 1f, 1f, 1f);
-    public Vector3 clickScale = new Vector3(.8f, .8f, .8f);
+    public Vector3 clickScale = new Vector3(1f, 1f, 1f);
 
     private Vector3 _initScale;
 
@@ -16,13 +16,16 @@ public class KinectUICursor : AbstractKinectUICursor
     {
         base.Start();
         _initScale = transform.localScale;
-        _image.color = new Color(1f, 1f, 1f, 0f);
+        print("init scale: " + _initScale);
+        _image.color = new Color(1f, 1f, 1f, 1f);
     }
 
     public override void ProcessData()
     {
         // update pos
-        transform.position = _data.GetHandScreenPosition();
+        Vector3 newPos = _data.GetHandScreenPosition();
+        newPos.z = 0;
+        transform.position = newPos;
         if (_data.IsPressing)
         {
             _image.color = clickColor;
@@ -37,6 +40,7 @@ public class KinectUICursor : AbstractKinectUICursor
         {
             _image.color = normalColor;
         }
+
         _image.transform.localScale = _initScale;
     }
 }

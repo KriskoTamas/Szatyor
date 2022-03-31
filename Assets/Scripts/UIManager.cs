@@ -63,9 +63,9 @@ public class UIManager : MonoBehaviour
         gameOverlayPanel.SetActive(true);
         gameOverPanel.SetActive(false);
         gameStarted = true;
-        gameOver = false;
-        gamePaused = false;
-        Time.timeScale = 1;
+        //gameOver = false;
+        //gamePaused = false;
+        //Time.timeScale = 1;
     }
 
     public void ReplayGame()
@@ -87,12 +87,14 @@ public class UIManager : MonoBehaviour
             gamePaused = !gamePaused;
             if (gamePaused)
             {
-                Time.timeScale = 0;
+                //Time.timeScale = 0;
+                PlayerController.forwardSpeed = 0;
                 gamePausePanel.SetActive(true);
             }
             else
             {
-                Time.timeScale = 1;
+                //Time.timeScale = 1;
+                PlayerController.forwardSpeed = PlayerController.playerSpeed;
                 gamePausePanel.SetActive(false);
             }
         }

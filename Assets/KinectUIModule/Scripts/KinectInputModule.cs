@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Windows.Kinect;
 [AddComponentMenu("Kinect/Kinect Input Module")]
 [RequireComponent(typeof(EventSystem))]
@@ -86,6 +87,7 @@ public class KinectInputModule : BaseInputModule
             {
                 PointerEventData lookData = GetLookPointerEventData(_inputData[j].GetHandScreenPosition());
                 GameObject go = lookData.pointerCurrentRaycast.gameObject;
+                
                 ExecuteEvents.ExecuteHierarchy(go, lookData, ExecuteEvents.submitHandler);
                 // reset time
                 _inputData[j].HoverTime = Time.time;
@@ -173,14 +175,14 @@ public class KinectInputModule : BaseInputModule
     /// </summary>
     private void ProcessHover()
     {
+        print("processing hover...");
         for (int i = 0; i < _inputData.Length; i++)
         {
             PointerEventData pointer = GetLookPointerEventData(_inputData[i].GetHandScreenPosition());
             var obj = _handPointerData.pointerCurrentRaycast.gameObject;
             HandlePointerExitAndEnter(pointer, obj);
             // Hover update
-            _inputData[i].IsHovering = obj != null ? true : false;
-            //if (obj != null)
+            _inputData[i].IsHovering = (obj != null && obj.tag == "Button") ? true : false;
             _inputData[i].HoveringObject = obj;
         }
     }
