@@ -6,7 +6,7 @@ public class TileManager : MonoBehaviour
 {
     public GameObject[] tiles;
     public float zSpawn = 0;
-    private float tileLength = 30;
+    private float tileLength = 15;
     private int numberOfTiles = 7;
 
     private List<GameObject> activeTiles = new List<GameObject>();
