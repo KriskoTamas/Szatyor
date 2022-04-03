@@ -1495,8 +1495,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 6300789104014597936, guid: 6d0e10ea273b87f40b030240c626651c, type: 3}
-  - {fileID: 6300789104014597936, guid: 2e39a752921018b4eb5aab7f777771f3, type: 3}
+  - {fileID: 2567571875982254658, guid: 2d553ccbbe7497842a0647351cdc13a1, type: 3}
+  - {fileID: 5880018040684736958, guid: dc550ef2534feaf4d8fa9f4e32f742cf, type: 3}
+  - {fileID: 5080685530175899606, guid: 547e6e961f40e694d9036a7ab3dbb0e6, type: 3}
+  - {fileID: 5880018040684736958, guid: 1d061d87f20ca5f4caf504a1f9ecfd88, type: 3}
   zSpawn: 0
 --- !u!4 &409632778
 Transform:
