@@ -175,6 +175,6 @@ public class BodySourceView : MonoBehaviour
     
     public static Vector3 GetVector3FromJoint(Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, PlayerController.playerTransform.position.z-10);
+        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, -TileManager.tileLength);
     }
 }

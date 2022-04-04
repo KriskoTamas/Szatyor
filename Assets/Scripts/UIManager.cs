@@ -38,7 +38,12 @@ public class UIManager : MonoBehaviour
             PauseResumeGame();
         }
 
-        if(timeCount < refreshTime)
+        if (!gameStarted && Input.GetKeyDown(KeyCode.Space))
+        {
+            StartGame();
+        }
+
+        if (timeCount < refreshTime)
         {
             timeCount += Time.deltaTime;
             frameCount++;

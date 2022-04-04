@@ -9,17 +9,20 @@ public class PlayerController : MonoBehaviour
     private Vector3 direction;
     public GameObject gameOverPanel;
     public static Transform playerTransform;
-    public static float playerSpeed = 4;
-    public static float forwardSpeed = 4;
-    public static float laneDistance = 3;
-    public static float jumpForce = 14;
-    public static float gravity = -40;
+    public static float forwardSpeed;
     private int lane = 1; // 0: left, 1: middle, 2: right
+
+    // Constant values //
+    public const float playerSpeed = 4;
+    public const float gravity = -40;
+    public const float jumpForce = 14;
+    public const float laneDistance = 3;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         playerTransform = GameObject.Find("Player").transform;
+        forwardSpeed = playerSpeed;
     }
 
     void Update()

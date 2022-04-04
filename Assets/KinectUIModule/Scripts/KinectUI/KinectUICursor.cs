@@ -25,6 +25,7 @@ public class KinectUICursor : AbstractKinectUICursor
         // update pos
         Vector3 newPos = _data.GetHandScreenPosition();
         newPos.z = 0;
+        //newPos.y -= 100;
         transform.position = newPos;
         if (_data.IsPressing)
         {

@@ -17,8 +17,11 @@ public class KinectUIWaitCursor : AbstractKinectUICursor {
     public override void ProcessData()
     {
         // update pos
-        transform.position = _data.GetHandScreenPosition();
-        if(_data.IsHovering)
+        Vector3 newPos = _data.GetHandScreenPosition();
+        newPos.z = 0;
+        //newPos.y -= 100;
+        transform.position = newPos;
+        if (_data.IsHovering)
         {
             //print("hovering, object: " + _data.HoveringObject.name + ", fillAmount: " + _data.WaitOverAmount);
             _image.fillAmount = _data.WaitOverAmount;
