@@ -281,7 +281,7 @@ public class KinectInputData
     // Converts hand position to screen coordinates
     public Vector3 GetHandScreenPosition()
     {
-        return Camera.main.WorldToScreenPoint(new Vector3(HandPosition.x, HandPosition.y, HandPosition.z - handScreenPositionMultiplier));
+        return Camera.main.WorldToScreenPoint(new Vector3(HandPosition.x, HandPosition.y - 12, HandPosition.z - handScreenPositionMultiplier));
     }
     // Get hand state data from kinect body
     private HandState GetStateFromJointType(Body body, JointType type)
@@ -300,7 +300,7 @@ public class KinectInputData
     // Get Vector3 position from Joint position
     private Vector3 GetVector3FromJoint(Windows.Kinect.Joint joint)
     {
-        return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * 10);
+        return new Vector3(joint.Position.X * 40, joint.Position.Y * 20, joint.Position.Z * 20);
     }
 }
 
