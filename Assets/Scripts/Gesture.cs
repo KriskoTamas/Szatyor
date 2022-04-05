@@ -31,6 +31,20 @@ public class Gesture : MonoBehaviour
         bodies = new Body[sensor.BodyFrameSource.BodyCount];
         bodyReader.FrameArrived += BodyReader_FrameArrived;
     }
+    private void Update()
+    {
+        if (sensor.IsAvailable)
+        {
+            UIManager.kinectInfoText.text = "A Kinect csatlakoztatva van.";
+            UIManager.kinectInfoText.color = new Color(166f/255f, 255f/255f, 77f/255f);
+        }
+        else
+        {
+            UIManager.kinectInfoText.text = "A Kinect nincsen csatlakoztatva.";
+            UIManager.kinectInfoText.color = new Color(255f/255f, 128f/255f, 128f/255f);
+        }
+        // print("sensor available: " + sensor.IsAvailable);
+    }
 
     void BodyReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
     {
@@ -47,7 +61,7 @@ public class Gesture : MonoBehaviour
                 //print("head: " + head.y + " handLeft: " + handLeft.y + " handRight: " + handRight.y);
                 if (handLeft.y > head.y && handRight.y > head.y)
                 {
-                    if(UIManager.gameStarted && !UIManager.gamePaused)
+                    if(Game.started && !Game.paused)
                     {
                         manager.PauseResumeGame();
                     }

@@ -7,9 +7,10 @@ using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
-    public static bool gameStarted, gameOver, gamePaused;
     public static bool showMainPage = true;
     public static GameObject mainMenuPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
+    public static GameObject handRight, handRightRing;
+    public static Text kinectInfoText;
     [SerializeField]
     private Text framerateText;
     public Text scoreText;
@@ -25,14 +26,21 @@ public class UIManager : MonoBehaviour
         gameOverlayPanel = canvas.transform.Find("GameOverlayPanel").gameObject;
         gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
         gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
-        
+        //Text obj = canvas.transform.Find("KinectInfoText").GetComponent<Text>();
+        kinectInfoText = mainMenuPanel.transform.Find("KinectInfoText").GetComponent<Text>();
+
+        print("kinectInfoText: " + kinectInfoText);
+
+        handRight = canvas.transform.Find("HandRight").gameObject;
+        handRightRing = canvas.transform.Find("HandRightRing").gameObject;
+
         showMainPage = true;
 
         mainMenuPanel.SetActive(showMainPage);
         gameOverlayPanel.SetActive(!showMainPage);
-        gameStarted = !showMainPage;
-        gameOver = false;
-        gamePaused = false;
+        Game.started = !showMainPage;
+        Game.over = false;
+        Game.paused = false;
     }
 
     void Update()
@@ -45,17 +53,17 @@ public class UIManager : MonoBehaviour
             PauseResumeGame();
         }
 
-        if (!gameStarted && Input.GetKeyDown(KeyCode.Space))
+        if (!Game.started && Input.GetKeyDown(KeyCode.Space))
         {
             StartGame();
         }
 
-        if (gamePaused && Input.GetKeyDown(KeyCode.Space))
+        if (Game.paused && Input.GetKeyDown(KeyCode.Space))
         {
             MainMenu();
         }
 
-        if(!gamePaused)
+        if(!Game.paused)
             CalculateFPS();
     }
 
@@ -77,13 +85,14 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
+        handRight.SetActive(false);
+        handRightRing.SetActive(false);
         mainMenuPanel.SetActive(false);
         gameOverlayPanel.SetActive(true);
         gameOverPanel.SetActive(false);
-        gameStarted = true;
-        //gameOver = false;
-        //gamePaused = false;
-        //Time.timeScale = 1;
+        Game.started = true;
+        Game.over = false;
+        Game.paused = false;
     }
 
     public void ReplayGame()
@@ -95,27 +104,32 @@ public class UIManager : MonoBehaviour
     public void MainMenu()
     {
         showMainPage = true;
-        gameStarted = false;
-        gameOver = false;
-        gamePaused = false;
+        Game.started = false;
+        Game.over = false;
+        Game.paused = false;
         SceneManager.LoadScene("MainScene");
     }
 
     public void PauseResumeGame()
     {
-        if (gameStarted)
+        if (Game.started)
         {
-            gamePaused = !gamePaused;
-            if (gamePaused)
+            Game.paused = !Game.paused;
+            if (Game.paused)
             {
                 //Time.timeScale = 0;
+                handRight.SetActive(true);
+                handRightRing.SetActive(true);
+                PlayerController.player.gameObject.GetComponent<Animator>().enabled = false;
                 PlayerController.forwardSpeed = 0;
-                print("game paused, panel: " + gamePausePanel);
                 gamePausePanel.SetActive(true);
             }
             else
             {
                 //Time.timeScale = 1;
+                handRight.SetActive(false);
+                handRightRing.SetActive(false);
+                PlayerController.player.gameObject.GetComponent<Animator>().enabled = true;
                 PlayerController.forwardSpeed = PlayerController.playerSpeed;
                 gamePausePanel.SetActive(false);
             }

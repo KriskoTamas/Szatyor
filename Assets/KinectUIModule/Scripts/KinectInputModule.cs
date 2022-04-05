@@ -175,7 +175,7 @@ public class KinectInputModule : BaseInputModule
     /// </summary>
     private void ProcessHover()
     {
-        print("processing hover...");
+        // print("processing hover...");
         for (int i = 0; i < _inputData.Length; i++)
         {
             PointerEventData pointer = GetLookPointerEventData(_inputData[i].GetHandScreenPosition());

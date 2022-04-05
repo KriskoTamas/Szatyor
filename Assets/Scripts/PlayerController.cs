@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 direction;
-    public GameObject gameOverPanel;
+    public static GameObject player;
     public static Transform playerTransform;
     public static float forwardSpeed;
     private int lane = 1; // 0: left, 1: middle, 2: right
@@ -21,13 +21,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        playerTransform = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player");
+        playerTransform = player.transform;
         forwardSpeed = playerSpeed;
     }
 
     void Update()
     {
-        if (UIManager.gameStarted)
+        if (Game.started)
         {
             direction.z = forwardSpeed;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -91,7 +92,7 @@ public class PlayerController : MonoBehaviour
         //{
         //    //Debug.Log("hit");
         //    Time.timeScale = 0;
-        //    UIManager.gameOver = true;
+        //    Game.over = true;
         //    gameOverPanel.SetActive(true);
         //}
     }
