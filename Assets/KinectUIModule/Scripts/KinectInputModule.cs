@@ -12,7 +12,7 @@ public class KinectInputModule : BaseInputModule
     [SerializeField]
     private float _scrollSpeed = 3.5f;
     [SerializeField]
-    private float _waitOverTime = 2f;
+    private float _waitOverTime = 1.5f; // 2f
 
     PointerEventData _handPointerData;
 
@@ -281,7 +281,7 @@ public class KinectInputData
     // Converts hand position to screen coordinates
     public Vector3 GetHandScreenPosition()
     {
-        return Camera.main.WorldToScreenPoint(new Vector3(HandPosition.x, HandPosition.y - 12, HandPosition.z - handScreenPositionMultiplier));
+        return Camera.main.WorldToScreenPoint(new Vector3(HandPosition.x, HandPosition.y - 20, HandPosition.z - handScreenPositionMultiplier));
     }
     // Get hand state data from kinect body
     private HandState GetStateFromJointType(Body body, JointType type)

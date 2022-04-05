@@ -9,11 +9,11 @@ public class Gesture : MonoBehaviour
 
     [SerializeField]
     private UIManager manager;
-    private KinectSensor sensor = null;
-    private BodyFrameReader bodyReader = null;
-    private Body[] bodies = null;
+    private KinectSensor sensor;
+    private BodyFrameReader bodyReader;
+    private static Body[] bodies;
 
-    Vector3 getJointPos(JointType joint)
+    public static Vector3 getJointPos(JointType joint)
     {
         Body body = bodies.Where(x => x.IsTracked).FirstOrDefault();
         Vector3 pos = new Vector3();
@@ -29,7 +29,7 @@ public class Gesture : MonoBehaviour
         sensor.Open();
         bodyReader = sensor.BodyFrameSource.OpenReader();
         bodies = new Body[sensor.BodyFrameSource.BodyCount];
-        bodyReader.FrameArrived += BodyReader_FrameArrived;
+        bodyReader.FrameArrived += BodyReader_FrameArrived;        
     }
     private void Update()
     {
