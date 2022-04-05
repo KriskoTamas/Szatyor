@@ -983,6 +983,7 @@ MonoBehaviour:
   - {fileID: 2567571875982254658, guid: d8aae5207a4ab6d40ad8b49a7b0a9337, type: 3}
   - {fileID: 2567571875982254658, guid: 7aa0b7861b714894a9801ca15cc6bc28, type: 3}
   - {fileID: 2567571875982254658, guid: 02d1fe6f951c67e48a38a8ce3a8ff980, type: 3}
+  - {fileID: 2567571875982254658, guid: 2f3806c7b62c66b489f026d57c1856a6, type: 3}
   zSpawn: 0
 --- !u!4 &409632778
 Transform:
@@ -1430,8 +1431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8251b4ebb4a8514faa264b31ff8f08d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 1602419157}
   framerateText: {fileID: 1410040308}
+  scoreText: {fileID: 1602419157}
 --- !u!1 &668705430
 GameObject:
   m_ObjectHideFlags: 0
