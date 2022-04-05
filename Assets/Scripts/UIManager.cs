@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class UIManager : MonoBehaviour
 {
     public static bool gameStarted, gameOver, gamePaused;
     public static bool showMainPage = true;
-    public GameObject mainMenuPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
+    public static GameObject mainMenuPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
+    [SerializeField]
+    private Text framerateText;
     public Text scoreText;
 
     private int frameCount = 0;
     private float timeCount = 0;
     private float refreshTime = 0.1f;
-    [SerializeField]
-    private Text framerateText;
 
     void Start()
     {
-        //showMainPage = false;
-        //mainMenuPanel.SetActive(showMainPage);
-        //gameOverlayPanel.SetActive(!showMainPage);
-        //Time.timeScale = showMainPage ? 0 : 1;
-        //gameStarted = !showMainPage;
-        //gameOver = false;
-        //gamePaused = false;
+        GameObject canvas = GameObject.Find("Canvas");
+        mainMenuPanel = canvas.transform.Find("MainMenuPanel").gameObject;
+        gameOverlayPanel = canvas.transform.Find("GameOverlayPanel").gameObject;
+        gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
+        gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
+        
+        showMainPage = true;
+
+        mainMenuPanel.SetActive(showMainPage);
+        gameOverlayPanel.SetActive(!showMainPage);
+        gameStarted = !showMainPage;
+        gameOver = false;
+        gamePaused = false;
     }
 
     void Update()
@@ -43,6 +50,17 @@ public class UIManager : MonoBehaviour
             StartGame();
         }
 
+        if (gamePaused && Input.GetKeyDown(KeyCode.Space))
+        {
+            MainMenu();
+        }
+
+        if(!gamePaused)
+            CalculateFPS();
+    }
+
+    private void CalculateFPS()
+    {
         if (timeCount < refreshTime)
         {
             timeCount += Time.deltaTime;
@@ -53,13 +71,8 @@ public class UIManager : MonoBehaviour
             float fps = frameCount / timeCount;
             frameCount = 0;
             timeCount = 0;
-            framerateText.text = "FPS: " + fps.ToString("n2");
+            framerateText.text = "FPS: " + fps.ToString("n0");
         }
-    }
-
-    private void CalculateFPS()
-    {
-
     }
 
     public void StartGame()
@@ -82,6 +95,9 @@ public class UIManager : MonoBehaviour
     public void MainMenu()
     {
         showMainPage = true;
+        gameStarted = false;
+        gameOver = false;
+        gamePaused = false;
         SceneManager.LoadScene("MainScene");
     }
 
@@ -94,6 +110,7 @@ public class UIManager : MonoBehaviour
             {
                 //Time.timeScale = 0;
                 PlayerController.forwardSpeed = 0;
+                print("game paused, panel: " + gamePausePanel);
                 gamePausePanel.SetActive(true);
             }
             else
