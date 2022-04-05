@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.31302777, g: 0.29371363, b: 0.51410186, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -976,12 +976,13 @@ MonoBehaviour:
   tiles:
   - {fileID: 2567571875982254658, guid: 2d553ccbbe7497842a0647351cdc13a1, type: 3}
   - {fileID: 5880018040684736958, guid: dc550ef2534feaf4d8fa9f4e32f742cf, type: 3}
-  - {fileID: 5080685530175899606, guid: 547e6e961f40e694d9036a7ab3dbb0e6, type: 3}
+  - {fileID: 2567571875982254658, guid: 33aa1f04dfd0d794bae03af0ee27c3a6, type: 3}
   - {fileID: 5880018040684736958, guid: 1d061d87f20ca5f4caf504a1f9ecfd88, type: 3}
   - {fileID: 5880018040684736958, guid: 4ce20e6150374534693fcaf97b98972a, type: 3}
   - {fileID: 2567571875982254658, guid: 33aa1f04dfd0d794bae03af0ee27c3a6, type: 3}
   - {fileID: 2567571875982254658, guid: d8aae5207a4ab6d40ad8b49a7b0a9337, type: 3}
   - {fileID: 2567571875982254658, guid: 7aa0b7861b714894a9801ca15cc6bc28, type: 3}
+  - {fileID: 2567571875982254658, guid: 02d1fe6f951c67e48a38a8ce3a8ff980, type: 3}
   zSpawn: 0
 --- !u!4 &409632778
 Transform:
@@ -3272,7 +3273,7 @@ Camera:
   m_GameObject: {fileID: 1674941370}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.38113207, g: 0.6218029, b: 1, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
