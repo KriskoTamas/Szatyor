@@ -52,7 +52,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.8140006, y: 0.21063979, z: 0.14940426}
   m_Center: {x: 0.0016748162, y: 0.04498401, z: -0.0013373346}
---- !u!65 &7071674423971102735
+--- !u!65 &7112338613752663827
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,8 +63,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9415886, y: 0.93031585, z: 0.4337809}
-  m_Center: {x: 0.05793577, y: -0.02062661, z: 0.11659245}
+  m_Size: {x: 1.0574601, y: 0.9715707, z: 0.96024156}
+  m_Center: {x: 2.0231178e-16, y: 0.00000002963358, z: 0.40568683}
 --- !u!65 &58385841224838686
 BoxCollider:
   m_ObjectHideFlags: 0
