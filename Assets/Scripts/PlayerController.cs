@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public const float playerSpeed = 4;
     public const float gravity = -40;
     public const float jumpForce = 14;
-    public const float laneDistance = 3;
+    public const float laneDistance = 4.5f;
 
     void Start()
     {
