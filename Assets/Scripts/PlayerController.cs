@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public static GameObject player;
     public static Transform playerTransform;
     public static float forwardSpeed;
-    private int lane = 1; // 0: left, 1: middle, 2: right
+    private static int lane = 1; // 0: left, 1: middle, 2: right
 
     // Constant values //
     public const float playerSpeed = 4;
@@ -33,15 +33,11 @@ public class PlayerController : MonoBehaviour
             direction.z = forwardSpeed;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                lane--;
-                if (lane < 0)
-                    lane = 0;
+                MoveLeft();
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                lane++;
-                if (lane > 2)
-                    lane = 2;
+                MoveRight();
             }
 
             if (controller.isGrounded)
@@ -67,7 +63,7 @@ public class PlayerController : MonoBehaviour
                 return;
 
             Vector3 diff = targetPosition - transform.position;
-            Vector3 moveDir = diff.normalized * Time.deltaTime * 10;
+            Vector3 moveDir = diff.normalized * Time.deltaTime * 20;
             if (moveDir.sqrMagnitude < diff.sqrMagnitude)
                 controller.Move(moveDir);
             else
@@ -82,7 +78,26 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        direction.y = jumpForce;
+        if (!Game.paused && Game.started)
+            direction.y = jumpForce;
+    }
+
+    public static void MoveLeft()
+    {
+        if (!Game.paused && Game.started)
+        {
+            lane--;
+            if (lane < 0) lane = 0;
+        }
+    }
+
+    public static void MoveRight()
+    {
+        if (!Game.paused && Game.started)
+        {
+            lane++;
+            if (lane > 2) lane = 2;
+        }
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -100,7 +115,7 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         print("OnCollisionEnter");
-        ContactPoint point = collision.GetContact(0);
+        //ContactPoint point = collision.GetContact(0);
     }
 
     private void OnTriggerEnter(Collider other)

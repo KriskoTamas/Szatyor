@@ -12,8 +12,9 @@ public class Gesture : MonoBehaviour
     private KinectSensor sensor;
     private BodyFrameReader bodyReader;
     private static Body[] bodies;
+    private bool leftHandStill, rightHandStill;
 
-    public static Vector3 getJointPos(JointType joint)
+    public static Vector3 GetJointPos(JointType joint)
     {
         Body body = bodies.Where(x => x.IsTracked).FirstOrDefault();
         Vector3 pos = new Vector3();
@@ -54,9 +55,15 @@ public class Gesture : MonoBehaviour
             {
                 frame.GetAndRefreshBodyData(bodies);
 
-                Vector3 head = getJointPos(JointType.Head);
-                Vector3 handLeft = getJointPos(JointType.HandLeft);
-                Vector3 handRight = getJointPos(JointType.HandRight);
+                Vector3 head = GetJointPos(JointType.Head);
+                Vector3 handLeft = GetJointPos(JointType.HandLeft);
+                Vector3 handRight = GetJointPos(JointType.HandRight);
+
+                Vector3 elbowLeft = GetJointPos(JointType.ElbowLeft);
+                Vector3 elbowRight = GetJointPos(JointType.ElbowRight);
+
+                Vector3 leftFoot = GetJointPos(JointType.FootLeft);
+                Vector3 rightFoot = GetJointPos(JointType.FootRight);
 
                 //print("head: " + head.y + " handLeft: " + handLeft.y + " handRight: " + handRight.y);
                 if (handLeft.y > head.y && handRight.y > head.y)
@@ -66,6 +73,18 @@ public class Gesture : MonoBehaviour
                         manager.PauseResumeGame();
                     }
                 }
+
+                if(handRight.x - 0.2 > elbowRight.x)
+                {
+                    PlayerController.MoveRight();
+                    //print("jobbra");
+                }
+                if(handLeft.x + 0.2 < elbowLeft.x)
+                {
+                    PlayerController.MoveLeft();
+                    //print("balra");
+                }
+                print(handRight.x);
             }
         }
     }
