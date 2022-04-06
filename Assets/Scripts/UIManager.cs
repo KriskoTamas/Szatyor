@@ -26,10 +26,7 @@ public class UIManager : MonoBehaviour
         gameOverlayPanel = canvas.transform.Find("GameOverlayPanel").gameObject;
         gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
         gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
-        //Text obj = canvas.transform.Find("KinectInfoText").GetComponent<Text>();
         kinectInfoText = mainMenuPanel.transform.Find("KinectInfoText").GetComponent<Text>();
-
-        print("kinectInfoText: " + kinectInfoText);
 
         handRight = canvas.transform.Find("HandRight").gameObject;
         handRightRing = canvas.transform.Find("HandRightRing").gameObject;
@@ -45,7 +42,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        int distance = (int) PlayerController.playerTransform.position.z;
+        int distance = (int) Player.GetPos().z;
         scoreText.text = distance + " m";
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
@@ -53,12 +50,17 @@ public class UIManager : MonoBehaviour
             PauseResumeGame();
         }
 
-        if (!Game.started && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            QuitGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
         {
             StartGame();
         }
 
-        if (Game.paused && Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             MainMenu();
         }
@@ -85,14 +87,17 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        handRight.SetActive(false);
-        handRightRing.SetActive(false);
-        mainMenuPanel.SetActive(false);
-        gameOverlayPanel.SetActive(true);
-        gameOverPanel.SetActive(false);
-        Game.started = true;
-        Game.over = false;
-        Game.paused = false;
+        if (!Game.started)
+        {
+            handRight.SetActive(false);
+            handRightRing.SetActive(false);
+            mainMenuPanel.SetActive(false);
+            gameOverlayPanel.SetActive(true);
+            gameOverPanel.SetActive(false);
+            Game.started = true;
+            Game.over = false;
+            Game.paused = false;
+        }
     }
 
     public void ReplayGame()
@@ -103,11 +108,14 @@ public class UIManager : MonoBehaviour
 
     public void MainMenu()
     {
-        showMainPage = true;
-        Game.started = false;
-        Game.over = false;
-        Game.paused = false;
-        SceneManager.LoadScene("MainScene");
+        if (Game.paused)
+        {
+            showMainPage = true;
+            Game.started = false;
+            Game.over = false;
+            Game.paused = false;
+            SceneManager.LoadScene("MainScene");
+        }
     }
 
     public void PauseResumeGame()
@@ -117,20 +125,18 @@ public class UIManager : MonoBehaviour
             Game.paused = !Game.paused;
             if (Game.paused)
             {
-                //Time.timeScale = 0;
                 handRight.SetActive(true);
                 handRightRing.SetActive(true);
-                PlayerController.player.gameObject.GetComponent<Animator>().enabled = false;
-                PlayerController.forwardSpeed = 0;
+                Player.SetAnimation(false);
+                Player.forwardSpeed = 0;
                 gamePausePanel.SetActive(true);
             }
             else
             {
-                //Time.timeScale = 1;
                 handRight.SetActive(false);
                 handRightRing.SetActive(false);
-                PlayerController.player.gameObject.GetComponent<Animator>().enabled = true;
-                PlayerController.forwardSpeed = PlayerController.playerSpeed;
+                Player.SetAnimation(true);
+                Player.forwardSpeed = Player.defaultSpeed;
                 gamePausePanel.SetActive(false);
             }
         }
@@ -138,6 +144,7 @@ public class UIManager : MonoBehaviour
 
     public void QuitGame()
     {
-        Application.Quit();
+        if(!Game.started)
+            Application.Quit();
     }
 }

@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
 
     private CharacterController controller;
     private Vector3 direction;
-    public static GameObject player;
-    public static Transform playerTransform;
+    private static GameObject player;
+    private static Transform playerTransform;
     public static float forwardSpeed;
     private static int lane = 1; // 0: left, 1: middle, 2: right
 
     // Constant values //
-    public const float playerSpeed = 4;
+    public const float defaultSpeed = 4;
     public const float gravity = -40;
     public const float jumpForce = 14;
     public const float laneDistance = 4.5f;
@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         player = GameObject.Find("Player");
         playerTransform = player.transform;
-        forwardSpeed = playerSpeed;
+        forwardSpeed = defaultSpeed;
     }
 
     void Update()
@@ -76,6 +76,17 @@ public class PlayerController : MonoBehaviour
         controller.Move(direction * Time.deltaTime);
     }
 
+    public static Vector3 GetPos()
+    {
+        if(playerTransform == null) return Vector3.zero;
+        return playerTransform.position;
+    }
+
+    public static void SetAnimation(bool boolean)
+    {
+        player.gameObject.GetComponent<Animator>().enabled = boolean;
+    }
+
     private void Jump()
     {
         if (!Game.paused && Game.started)
@@ -102,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        print("OnControllerColliderHit");
+        //print("OnControllerColliderHit");
         //if(hit.transform.tag == "Obstacle")
         //{
         //    //Debug.Log("hit");
@@ -114,13 +125,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("OnCollisionEnter");
+        //print("OnCollisionEnter");
         //ContactPoint point = collision.GetContact(0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        print("OnTriggerEnter");
+        //print("OnTriggerEnter");
     }
 
 }

@@ -76,12 +76,12 @@ public class Gesture : MonoBehaviour
 
                 if(handRight.x - 0.2 > elbowRight.x)
                 {
-                    PlayerController.MoveRight();
+                    Player.MoveRight();
                     //print("jobbra");
                 }
                 if(handLeft.x + 0.2 < elbowLeft.x)
                 {
-                    PlayerController.MoveLeft();
+                    Player.MoveLeft();
                     //print("balra");
                 }
                 print(handRight.x);

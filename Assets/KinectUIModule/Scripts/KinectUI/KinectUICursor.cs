@@ -16,7 +16,6 @@ public class KinectUICursor : AbstractKinectUICursor
     {
         base.Start();
         _initScale = transform.localScale;
-        print("init scale: " + _initScale);
         _image.color = new Color(1f, 1f, 1f, 1f);
     }
 

@@ -18,7 +18,7 @@ public class TileManager : MonoBehaviour
 
     void Update()
     {
-        if (PlayerController.playerTransform.position.z - tileLength > zSpawn - (numberOfTiles * tileLength)){
+        if (Player.GetPos().z - tileLength > zSpawn - (numberOfTiles * tileLength)){
             SpawnTile(Random.Range(0, tiles.Length));
             DeleteTile();
         }
