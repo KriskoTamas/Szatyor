@@ -6,5 +6,6 @@ public class Game
 {
 
     public static bool started, over, paused;
+    public static bool kinectConnected = false;
 
 }

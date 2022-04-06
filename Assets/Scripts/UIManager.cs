@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     private int frameCount = 0;
     private float timeCount = 0;
-    private float refreshTime = 0.1f;
+    private const float refreshTime = 0.1f;
 
     void Start()
     {
@@ -30,8 +30,6 @@ public class UIManager : MonoBehaviour
 
         handRight = canvas.transform.Find("HandRight").gameObject;
         handRightRing = canvas.transform.Find("HandRightRing").gameObject;
-
-        showMainPage = true;
 
         mainMenuPanel.SetActive(showMainPage);
         gameOverlayPanel.SetActive(!showMainPage);
@@ -57,7 +55,10 @@ public class UIManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.S))
         {
-            StartGame();
+            if(Game.over)
+                ReplayGame();
+            else
+                StartGame();
         }
 
         if (Input.GetKeyDown(KeyCode.M))
@@ -65,7 +66,7 @@ public class UIManager : MonoBehaviour
             MainMenu();
         }
 
-        if(!Game.paused)
+        if(!Game.paused && !Game.over)
             CalculateFPS();
     }
 
@@ -108,7 +109,7 @@ public class UIManager : MonoBehaviour
 
     public void MainMenu()
     {
-        if (Game.paused)
+        if (Game.paused || Game.over)
         {
             showMainPage = true;
             Game.started = false;
@@ -125,8 +126,8 @@ public class UIManager : MonoBehaviour
             Game.paused = !Game.paused;
             if (Game.paused)
             {
-                handRight.SetActive(true);
-                handRightRing.SetActive(true);
+                handRight.SetActive(Game.kinectConnected);
+                handRightRing.SetActive(Game.kinectConnected);
                 Player.SetAnimation(false);
                 Player.forwardSpeed = 0;
                 gamePausePanel.SetActive(true);

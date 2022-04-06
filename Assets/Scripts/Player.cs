@@ -114,13 +114,17 @@ public class Player : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //print("OnControllerColliderHit");
-        //if(hit.transform.tag == "Obstacle")
-        //{
-        //    //Debug.Log("hit");
-        //    Time.timeScale = 0;
-        //    Game.over = true;
-        //    gameOverPanel.SetActive(true);
-        //}
+        if (hit.transform.tag == "Obstacle")
+        {
+            //Debug.Log("hit");
+            Game.over = true;
+            Game.started = false;
+            UIManager.handRight.SetActive(Game.kinectConnected);
+            UIManager.handRightRing.SetActive(Game.kinectConnected);
+            SetAnimation(false);
+            forwardSpeed = 0;
+            UIManager.gameOverPanel.SetActive(true);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -22,10 +22,7 @@ public class KinectUICursor : AbstractKinectUICursor
     public override void ProcessData()
     {
         // update pos
-        Vector3 newPos = _data.GetHandScreenPosition();
-        newPos.z = 0;
-        //newPos.y -= 100;
-        transform.position = newPos;
+        transform.position = _data.GetHandScreenPosition();
         if (_data.IsPressing)
         {
             _image.color = clickColor;
