@@ -28,6 +28,11 @@ public class Player : MonoBehaviour
     {
         if (Game.started && !Game.over)
         {
+            //if (GetDistance() > 0 && GetDistance() % 50 == 0)
+            //{
+            //    forwardSpeed *= 1.05f;
+            //}
+
             direction.z = forwardSpeed;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {

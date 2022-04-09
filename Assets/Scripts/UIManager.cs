@@ -7,11 +7,8 @@ public class UIManager : MonoBehaviour
     public static bool showMainPage = true;
     public static GameObject mainMenuPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
     public static GameObject handRight, handRightRing;
-    public static TextMeshProUGUI finalScoreText;
+    public static TextMeshProUGUI distanceText, scoreText, finalScoreText, framerateText;
     public static Text kinectInfoText;
-    public static Text scoreText;
-    public static Text distanceText;
-    private Text framerateText;
 
     private int frameCount = 0;
     private float timeCount = 0;
@@ -25,10 +22,10 @@ public class UIManager : MonoBehaviour
         gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
         gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
         kinectInfoText = mainMenuPanel.transform.Find("KinectInfoText").GetComponent<Text>();
-        scoreText = gameOverlayPanel.transform.Find("ScoreText").GetComponent<Text>();
-        distanceText = gameOverlayPanel.transform.Find("DistanceText").GetComponent<Text>();
+        distanceText = gameOverlayPanel.transform.Find("DistanceText").GetComponent<TextMeshProUGUI>();
+        scoreText = gameOverlayPanel.transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
         finalScoreText = gameOverPanel.transform.Find("FinalScoreText").GetComponent<TextMeshProUGUI>();
-        framerateText = gameOverlayPanel.transform.Find("FramerateText").GetComponent<Text>();
+        framerateText = gameOverlayPanel.transform.Find("FramerateText").GetComponent<TextMeshProUGUI>();
 
         handRight = canvas.transform.Find("HandRight").gameObject;
         handRightRing = canvas.transform.Find("HandRightRing").gameObject;
