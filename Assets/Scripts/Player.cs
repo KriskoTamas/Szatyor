@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -28,7 +26,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (Game.started)
+        if (Game.started && !Game.over)
         {
             direction.z = forwardSpeed;
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -73,13 +71,19 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-        controller.Move(direction * Time.deltaTime);
+        if (Game.started && !Game.over)
+            controller.Move(direction * Time.deltaTime);
     }
 
     public static Vector3 GetPos()
     {
         if(playerTransform == null) return Vector3.zero;
         return playerTransform.position;
+    }
+
+    public static int GetDistance()
+    {
+        return (int) GetPos().z;
     }
 
     public static void SetAnimation(bool boolean)
@@ -114,16 +118,9 @@ public class Player : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //print("OnControllerColliderHit");
-        if (hit.transform.tag == "Obstacle")
+        if (hit.transform.tag == "Obstacle" && !Game.over)
         {
-            //Debug.Log("hit");
-            Game.over = true;
-            Game.started = false;
-            UIManager.handRight.SetActive(Game.kinectConnected);
-            UIManager.handRightRing.SetActive(Game.kinectConnected);
-            SetAnimation(false);
-            forwardSpeed = 0;
-            UIManager.gameOverPanel.SetActive(true);
+            Game.GameOver();
         }
     }
 

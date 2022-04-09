@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Windows.Kinect;
@@ -7,8 +5,6 @@ using Windows.Kinect;
 public class Gesture : MonoBehaviour
 {
 
-    [SerializeField]
-    private UIManager manager;
     private KinectSensor sensor;
     private BodyFrameReader bodyReader;
     private static Body[] bodies;
@@ -72,7 +68,7 @@ public class Gesture : MonoBehaviour
                 {
                     if(Game.started && !Game.paused)
                     {
-                        manager.PauseResumeGame();
+                        Game.PauseResumeGame();
                     }
                 }
 

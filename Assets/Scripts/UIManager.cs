@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-using System.Linq;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
     public static bool showMainPage = true;
     public static GameObject mainMenuPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
     public static GameObject handRight, handRightRing;
+    public static TextMeshProUGUI finalScoreText;
     public static Text kinectInfoText;
-    [SerializeField]
+    public static Text scoreText;
+    public static Text distanceText;
     private Text framerateText;
-    public Text scoreText;
 
     private int frameCount = 0;
     private float timeCount = 0;
@@ -27,6 +25,10 @@ public class UIManager : MonoBehaviour
         gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
         gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
         kinectInfoText = mainMenuPanel.transform.Find("KinectInfoText").GetComponent<Text>();
+        scoreText = gameOverlayPanel.transform.Find("ScoreText").GetComponent<Text>();
+        distanceText = gameOverlayPanel.transform.Find("DistanceText").GetComponent<Text>();
+        finalScoreText = gameOverPanel.transform.Find("FinalScoreText").GetComponent<TextMeshProUGUI>();
+        framerateText = gameOverlayPanel.transform.Find("FramerateText").GetComponent<Text>();
 
         handRight = canvas.transform.Find("HandRight").gameObject;
         handRightRing = canvas.transform.Find("HandRightRing").gameObject;
@@ -40,30 +42,30 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        int distance = (int) Player.GetPos().z;
-        scoreText.text = distance + " m";
+        int distance = Player.GetDistance();
+        distanceText.text = distance + " m";
 
         if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
         {
-            PauseResumeGame();
+            Game.PauseResumeGame();
         }
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            QuitGame();
+            Game.QuitGame();
         }
 
         if (Input.GetKeyDown(KeyCode.S))
         {
             if(Game.over)
-                ReplayGame();
+                Game.ReplayGame();
             else
-                StartGame();
+                Game.StartGame();
         }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
-            MainMenu();
+            Game.MainMenu();
         }
 
         if(!Game.paused && !Game.over)
@@ -84,68 +86,5 @@ public class UIManager : MonoBehaviour
             timeCount = 0;
             framerateText.text = "FPS: " + fps.ToString("n0");
         }
-    }
-
-    public void StartGame()
-    {
-        if (!Game.started)
-        {
-            handRight.SetActive(false);
-            handRightRing.SetActive(false);
-            mainMenuPanel.SetActive(false);
-            gameOverlayPanel.SetActive(true);
-            gameOverPanel.SetActive(false);
-            Game.started = true;
-            Game.over = false;
-            Game.paused = false;
-        }
-    }
-
-    public void ReplayGame()
-    {
-        showMainPage = false;
-        SceneManager.LoadScene("MainScene");
-    }
-
-    public void MainMenu()
-    {
-        if (Game.paused || Game.over)
-        {
-            showMainPage = true;
-            Game.started = false;
-            Game.over = false;
-            Game.paused = false;
-            SceneManager.LoadScene("MainScene");
-        }
-    }
-
-    public void PauseResumeGame()
-    {
-        if (Game.started)
-        {
-            Game.paused = !Game.paused;
-            if (Game.paused)
-            {
-                handRight.SetActive(Game.kinectConnected);
-                handRightRing.SetActive(Game.kinectConnected);
-                Player.SetAnimation(false);
-                Player.forwardSpeed = 0;
-                gamePausePanel.SetActive(true);
-            }
-            else
-            {
-                handRight.SetActive(false);
-                handRightRing.SetActive(false);
-                Player.SetAnimation(true);
-                Player.forwardSpeed = Player.defaultSpeed;
-                gamePausePanel.SetActive(false);
-            }
-        }
-    }
-
-    public void QuitGame()
-    {
-        if(!Game.started)
-            Application.Quit();
     }
 }
