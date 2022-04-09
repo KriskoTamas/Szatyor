@@ -16,7 +16,7 @@ public class SimpleCollectibleScript : MonoBehaviour {
 		if (type == CollectibleType.Coin) return 5;
 		else if (type == CollectibleType.Gold) return 10;
 		else if (type == CollectibleType.Diamond) return 20;
-		else return 0;
+		return 0;
 	}
 
 	void Start()

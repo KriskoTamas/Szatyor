@@ -80,6 +80,16 @@ public class Game : MonoBehaviour
         }
     }
 
+    public static void BackToMainMenu()
+    {
+        toplistPanel.SetActive(false);
+    }
+
+    public static void ToplistMenu()
+    {
+        toplistPanel.SetActive(true);
+    }
+
     public static void QuitGame()
     {
         if (!started || over)
