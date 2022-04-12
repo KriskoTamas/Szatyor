@@ -8,7 +8,8 @@ public class Gesture : MonoBehaviour
     private KinectSensor sensor;
     private BodyFrameReader bodyReader;
     private static Body[] bodies;
-    private bool leftHandStill, rightHandStill;
+    private bool leftHandStill = false, rightHandStill = false;
+    private float timeElapsed, leftHandTime, rightHandTime;
 
     public static Vector3 GetJointPos(JointType joint)
     {
@@ -30,6 +31,7 @@ public class Gesture : MonoBehaviour
     }
     private void Update()
     {
+        timeElapsed = Time.fixedTime;
         if (sensor.IsAvailable)
         {
             Game.kinectConnected = true;
@@ -60,8 +62,12 @@ public class Gesture : MonoBehaviour
                 Vector3 elbowLeft = GetJointPos(JointType.ElbowLeft);
                 Vector3 elbowRight = GetJointPos(JointType.ElbowRight);
 
-                Vector3 leftFoot = GetJointPos(JointType.FootLeft);
-                Vector3 rightFoot = GetJointPos(JointType.FootRight);
+                //Vector3 leftFoot = GetJointPos(JointType.FootLeft);
+                //Vector3 rightFoot = GetJointPos(JointType.FootRight);
+                // Vector3 hip = GetJointPos(JointType.SpineBase);
+                // print(hip.z);
+
+                //print(leftFoot + ", " + rightFoot);
 
                 //print("head: " + head.y + " handLeft: " + handLeft.y + " handRight: " + handRight.y);
                 if (handLeft.y > head.y && handRight.y > head.y)
@@ -72,17 +78,40 @@ public class Gesture : MonoBehaviour
                     }
                 }
 
-                if(handRight.x - 0.2 > elbowRight.x)
+                // Left Hand Gesture //
+                if (handLeft.x + 0.1 >= elbowLeft.x && handLeft.x - 0.1 <= elbowLeft.x && handLeft.y - 0.2 > elbowLeft.y)
                 {
-                    Player.MoveRight();
-                    //print("jobbra");
+                    leftHandStill = true;
+                    leftHandTime = timeElapsed;
                 }
-                if(handLeft.x + 0.2 < elbowLeft.x)
+
+                if (handLeft.x + 0.2 < elbowLeft.x)
                 {
-                    Player.MoveLeft();
-                    //print("balra");
+                    if (leftHandStill)
+                    {
+                        print((timeElapsed - leftHandTime) + " s");
+                        leftHandStill = false;
+                        Player.MoveLeft();
+                    }
                 }
-                print(handRight.x);
+
+                // Right Hand Gesture //
+                if (handRight.x - 0.1 <= elbowRight.x && handRight.x + 0.1 >= elbowRight.x && handRight.y - 0.2 > elbowRight.y)
+                {
+                    rightHandStill = true;
+                    rightHandTime = timeElapsed;
+                }
+
+                if (handRight.x - 0.2 > elbowRight.x)
+                {
+                    if (rightHandStill)
+                    {
+                        print((timeElapsed - rightHandTime) + " s");
+                        rightHandStill = false;
+                        Player.MoveRight();
+                    }
+                }
+
             }
         }
     }

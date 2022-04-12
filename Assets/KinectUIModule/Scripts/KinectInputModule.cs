@@ -182,7 +182,8 @@ public class KinectInputModule : BaseInputModule
             var obj = _handPointerData.pointerCurrentRaycast.gameObject;
             HandlePointerExitAndEnter(pointer, obj);
             // Hover update
-            _inputData[i].IsHovering = (obj != null && obj.tag == "Button") ? true : false;
+            //_inputData[i].IsHovering = (obj != null && obj.tag == "Button") ? true : false;
+            _inputData[i].IsHovering = obj != null ? true : false;
             _inputData[i].HoveringObject = obj;
         }
     }
