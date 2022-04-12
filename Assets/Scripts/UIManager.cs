@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public static bool showMainPage = true;
     public static GameObject mainMenuPanel, toplistPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
     public static GameObject handRight, handRightRing;
+    public static InputField playernameInput;
     public static Transform toplistView;
     public static TextMeshProUGUI distanceText, scoreText, finalScoreText, framerateText;
     public static Text kinectInfoText;
@@ -29,6 +30,10 @@ public class UIManager : MonoBehaviour
         finalScoreText = gameOverPanel.transform.Find("FinalScoreText").GetComponent<TextMeshProUGUI>();
         framerateText = gameOverlayPanel.transform.Find("FramerateText").GetComponent<TextMeshProUGUI>();
         toplistView = toplistPanel.transform.Find("Scroll View").transform.Find("Viewport").transform.Find("Content");
+        playernameInput = mainMenuPanel.transform.Find("PlayernameInput").gameObject.GetComponent<InputField>();
+        //var se = new InputField.SubmitEvent();
+        //se.AddListener(SubmitName);
+        //print(playernameInput.onEndEdit = se);
         //foreach(var item in toplistPanel.transform.FindChild("Content"))
         //{
         //    print(item);
@@ -43,6 +48,11 @@ public class UIManager : MonoBehaviour
         Game.over = false;
         Game.paused = false;
     }
+
+    //private void SubmitName(string arg0)
+    //{
+    //    print(arg0);
+    //}
 
     void Update()
     {

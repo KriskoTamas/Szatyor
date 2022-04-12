@@ -5,7 +5,6 @@ using static UIManager;
 public class Game : MonoBehaviour
 {
 
-    public static int score = 0;
     public static bool started, over, paused;
     public static bool kinectConnected = false;
 
@@ -13,6 +12,7 @@ public class Game : MonoBehaviour
     {
         if (!started)
         {
+            Player.name = playernameInput.text;
             handRight.SetActive(false);
             handRightRing.SetActive(false);
             mainMenuPanel.SetActive(false);
@@ -28,13 +28,28 @@ public class Game : MonoBehaviour
     {
         over = true;
         started = false;
-        handRight.SetActive(kinectConnected);
-        handRightRing.SetActive(kinectConnected);
         gameOverPanel.SetActive(true);
         Player.SetAnimation(false);
         Player.forwardSpeed = 0;
-        finalScoreText.text = "Pontszám: " + score;
-        score = 0;
+        print("playerName: " + Player.name);
+        for (int i = 0; i < Toplist.records.elements.Count; i++)
+        {
+            print(Toplist.records.elements[i].playerName);
+        }
+        RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.name);
+        if (record != null)
+        {
+            print("record: " + record);
+            //Toplist.records.elements
+        }
+        if (Player.score > Player.highscore)
+        {
+            
+            Player.highscore = Player.score;
+            PlayerPrefs.SetInt("highscore", Player.highscore);
+        }
+        finalScoreText.text = "Pontszám: " + Player.score + "\nRekord: " + Player.highscore;
+        Player.score = 0;
     }
 
     public static void ReplayGame()
@@ -71,7 +86,7 @@ public class Game : MonoBehaviour
     {
         if (paused || over)
         {
-            score = 0;
+            Player.score = 0;
             showMainPage = true;
             started = false;
             over = false;
@@ -98,8 +113,8 @@ public class Game : MonoBehaviour
 
     public static void AddToScore(int amount)
     {
-        score += amount;
-        scoreText.text = "Pont: " + score;
+        Player.score += amount;
+        scoreText.text = Player.score.ToString();
     }
 
 }

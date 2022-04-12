@@ -35,12 +35,16 @@ public class Gesture : MonoBehaviour
         if (sensor.IsAvailable)
         {
             Game.kinectConnected = true;
+            UIManager.handRight.SetActive(true);
+            UIManager.handRightRing.SetActive(true);
             UIManager.kinectInfoText.text = "A Kinect csatlakoztatva van";
             UIManager.kinectInfoText.color = new Color(166f/255f, 255f/255f, 77f/255f);
         }
         else
         {
             Game.kinectConnected = false;
+            UIManager.handRight.SetActive(false);
+            UIManager.handRightRing.SetActive(false);
             UIManager.kinectInfoText.text = "A Kinect nincsen csatlakoztatva";
             UIManager.kinectInfoText.color = new Color(255f/255f, 128f/255f, 128f/255f);
         }

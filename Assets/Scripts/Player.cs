@@ -7,8 +7,11 @@ public class Player : MonoBehaviour
     private Vector3 direction;
     private static GameObject player;
     private static Transform playerTransform;
-    public static float forwardSpeed;
     private static int lane = 1; // 0: left, 1: middle, 2: right
+    public static float forwardSpeed;
+    public static string name;
+
+    public static int score = 0, highscore = 0;
 
     // Constant values //
     public const float defaultSpeed = 4;
@@ -18,6 +21,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        if(PlayerPrefs.HasKey("highscore"))
+            highscore = PlayerPrefs.GetInt("highscore");
         controller = GetComponent<CharacterController>();
         player = GameObject.Find("Player");
         playerTransform = player.transform;
