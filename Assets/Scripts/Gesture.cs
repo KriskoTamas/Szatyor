@@ -70,13 +70,20 @@ public class Gesture : MonoBehaviour
                 //print(leftFoot + ", " + rightFoot);
 
                 //print("head: " + head.y + " handLeft: " + handLeft.y + " handRight: " + handRight.y);
-                if (handLeft.y > head.y && handRight.y > head.y)
+                if (Mathf.Abs(handLeft.x - handRight.x) <= 0.1 && Mathf.Abs(handLeft.y - handRight.y) <= 0.1)
                 {
-                    if(Game.started && !Game.paused)
-                    {
+                    //print("állj!");
+                    if (Game.started && !Game.paused)
                         Game.PauseResumeGame();
-                    }
                 }
+                //print("left: " + handLeft.x + " right: " + handRight.x);
+                //if (handLeft.y > head.y && handRight.y > head.y)
+                //{
+                //    if(Game.started && !Game.paused)
+                //    {
+                //        Game.PauseResumeGame();
+                //    }
+                //}
 
                 // Left Hand Gesture //
                 if (handLeft.x + 0.1 >= elbowLeft.x && handLeft.x - 0.1 <= elbowLeft.x && handLeft.y - 0.2 > elbowLeft.y)
