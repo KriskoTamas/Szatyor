@@ -7,21 +7,16 @@ public class Toplist : MonoBehaviour
     [SerializeField]
     private GameObject row;
     public static RecordList records;
-    bool init = false;
-    // Start is called before the first frame update
+
     void Start()
     {
         LoadFromJson();
+        DisplayRecords();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (!init)
-        {
-            init = true;
-            //LoadFromJson();
-        }
+
     }
 
     public static int getHighScore(string playerName)
@@ -38,7 +33,7 @@ public class Toplist : MonoBehaviour
         string data = System.IO.File.ReadAllText(filePath);
 
         records = JsonUtility.FromJson<RecordList>(data);
-        // DisplayRecords();
+        records.elements.Sort((a, b) => b.highScore.CompareTo(a.highScore));
     }
 
     public static void WriteToJson()

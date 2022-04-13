@@ -21,9 +21,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        //RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.name);
-        //if (record != null)
-        //    highscore = record.highScore;
         controller = GetComponent<CharacterController>();
         player = GameObject.Find("Player");
         playerTransform = player.transform;

@@ -48,8 +48,6 @@ public class Game : MonoBehaviour
                 Toplist.records.elements[idx].highScore = highscore;
                 Toplist.WriteToJson();
             }
-            //print("record idx: " + idx);
-            //Toplist.records.elements
         }
         else
         {
