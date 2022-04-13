@@ -7,12 +7,15 @@ public class Game : MonoBehaviour
 
     public static bool started, over, paused;
     public static bool kinectConnected = false;
+    public static bool playernameInputValid;
 
     public static void StartGame()
     {
         if (!started)
         {
             Player.name = playernameInput.text;
+            Player.highscore = Toplist.getHighScore(Player.name);
+            highScoreText.text = Player.highscore.ToString();
             handRight.SetActive(false);
             handRightRing.SetActive(false);
             mainMenuPanel.SetActive(false);
@@ -31,24 +34,34 @@ public class Game : MonoBehaviour
         gameOverPanel.SetActive(true);
         Player.SetAnimation(false);
         Player.forwardSpeed = 0;
-        print("playerName: " + Player.name);
-        for (int i = 0; i < Toplist.records.elements.Count; i++)
-        {
-            print(Toplist.records.elements[i].playerName);
-        }
+
         RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.name);
+        int idx = Toplist.records.elements.IndexOf(record);
+        int highscore = 0;
+
         if (record != null)
         {
-            print("record: " + record);
+            highscore = record.highScore;
+            if(Player.score > highscore)
+            {
+                highscore = Player.score;
+                Toplist.records.elements[idx].highScore = highscore;
+                Toplist.WriteToJson();
+            }
+            //print("record idx: " + idx);
             //Toplist.records.elements
         }
-        if (Player.score > Player.highscore)
+        else
         {
-            
-            Player.highscore = Player.score;
-            PlayerPrefs.SetInt("highscore", Player.highscore);
+            highscore = Player.score;
+            RecordList.Record newrecord = new RecordList.Record();
+            newrecord.playerName = Player.name;
+            newrecord.highScore = highscore;
+            Toplist.records.elements.Add(newrecord);
+            Toplist.WriteToJson();
         }
-        finalScoreText.text = "Pontszám: " + Player.score + "\nRekord: " + Player.highscore;
+
+        finalScoreText.text = "Pontszám: " + Player.score + "\nRekord: " + highscore;
         Player.score = 0;
     }
 

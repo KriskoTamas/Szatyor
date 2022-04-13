@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private static Transform playerTransform;
     private static int lane = 1; // 0: left, 1: middle, 2: right
     public static float forwardSpeed;
-    public static string name;
+    public static string name = "Jozsi";
 
     public static int score = 0, highscore = 0;
 
@@ -21,8 +21,9 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if(PlayerPrefs.HasKey("highscore"))
-            highscore = PlayerPrefs.GetInt("highscore");
+        //RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.name);
+        //if (record != null)
+        //    highscore = record.highScore;
         controller = GetComponent<CharacterController>();
         player = GameObject.Find("Player");
         playerTransform = player.transform;
