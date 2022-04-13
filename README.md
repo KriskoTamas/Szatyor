@@ -20,4 +20,4 @@
 <h2>📖 A játék története</h2>
 
 <h2>🕹 A játék menete</h2>
-<p>A játék során egy csontváz karakter elől kell elfutni, miközben különféle akadályokat kell leküzdeni. A játék addig megy, amíg el nem rontunk egy akadályt, tehát nem lehet kivinni egy pályát, hiszen a végtlenségig megy.</p>
+<p>A játék során egy csontváz karakter elől kell elfutni, miközben különféle akadályokat kell leküzdeni. A játék addig megy, amíg el nem rontunk egy akadályt, tehát nem lehet kivinni egy pályát, hiszen a végtelenségig megy.</p>
