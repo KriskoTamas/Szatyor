@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
         gameOverlayPanel = canvas.transform.Find("GameOverlayPanel").gameObject;
         gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
         gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
-        playButton = mainMenuPanel.transform.Find("PlayButton").gameObject.GetComponent<Button>();
+        playButton = mainMenuPanel.transform.Find("ButtonGrid").transform.Find("PlayButton").gameObject.GetComponent<Button>();
         kinectInfoText = mainMenuPanel.transform.Find("KinectInfoText").GetComponent<Text>();
         distanceText = gameOverlayPanel.transform.Find("DistanceText").GetComponent<TextMeshProUGUI>();
         scoreText = gameOverlayPanel.transform.Find("ScoreText").GetComponent<TextMeshProUGUI>();
