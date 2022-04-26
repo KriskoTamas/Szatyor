@@ -14,8 +14,8 @@ public class Game : MonoBehaviour
     {
         if (!started)
         {
-            Player.name = playernameInput.text;
-            Player.highscore = Toplist.getHighScore(Player.name);
+            Player.playerName = playernameInput.text;
+            Player.highscore = Toplist.getHighScore(Player.playerName);
             highScoreText.text = Player.highscore.ToString();
             handRight.SetActive(false);
             handRightRing.SetActive(false);
@@ -36,7 +36,7 @@ public class Game : MonoBehaviour
         Player.SetAnimation(false);
         Player.forwardSpeed = 0;
 
-        RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.name);
+        RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.playerName);
         int idx = Toplist.records.elements.IndexOf(record);
         int highscore = 0;
 
@@ -54,7 +54,7 @@ public class Game : MonoBehaviour
         {
             highscore = Player.score;
             RecordList.Record newrecord = new RecordList.Record();
-            newrecord.playerName = Player.name;
+            newrecord.playerName = Player.playerName;
             newrecord.highScore = highscore;
             Toplist.records.elements.Add(newrecord);
             Toplist.WriteToJson();

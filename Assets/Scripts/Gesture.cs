@@ -12,7 +12,6 @@ public class Gesture : MonoBehaviour
     private static Body[] bodies;
     private bool leftHandStill = false, rightHandStill = false; // for moving sideways
     private bool jumpStill = false; // for jumping
-    private float timeElapsed;
 
     public static Vector3 GetJointPos(JointType joint)
     {
@@ -38,7 +37,6 @@ public class Gesture : MonoBehaviour
     }
     private void Update()
     {
-        timeElapsed = Time.fixedTime;
         if (sensor != null && sensor.IsAvailable)
         {
             Game.kinectConnected = true;

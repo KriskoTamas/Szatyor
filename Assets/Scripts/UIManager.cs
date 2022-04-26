@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -38,13 +39,13 @@ public class UIManager : MonoBehaviour
         ev.AddListener(SubmitName);
         playernameInput.onValueChanged = ev;
 
-        Player.highscore = Toplist.getHighScore(Player.name);
+        Player.highscore = Toplist.getHighScore(Player.playerName);
         highScoreText.text = Player.highscore.ToString();
 
         handRight = canvas.transform.Find("HandRight").gameObject;
         handRightRing = canvas.transform.Find("HandRightRing").gameObject;
 
-        playernameInput.text = Player.name;
+        playernameInput.text = Player.playerName;
         mainMenuPanel.SetActive(showMainPage);
         gameOverlayPanel.SetActive(!showMainPage);
         Game.started = !showMainPage;
@@ -85,6 +86,12 @@ public class UIManager : MonoBehaviour
             {
                 if (!Game.started)
                     Game.BackToMainMenu();
+            }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                playernameInput.Select();
+                playernameInput.ActivateInputField();
             }
 
             if (Input.GetKeyDown(KeyCode.Q))
