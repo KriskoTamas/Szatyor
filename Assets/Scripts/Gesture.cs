@@ -99,7 +99,6 @@ public class Gesture : MonoBehaviour
                 if (handLeft.x + 0.1 >= elbowLeft.x && handLeft.x - 0.1 <= elbowLeft.x && handLeft.y - 0.2 > elbowLeft.y)
                 {
                     leftHandStill = true;
-                    leftHandTime = timeElapsed;
                 }
 
                 if (leftHandStill && handLeft.x + 0.2 < elbowLeft.x)
@@ -112,7 +111,6 @@ public class Gesture : MonoBehaviour
                 if (handRight.x - 0.1 <= elbowRight.x && handRight.x + 0.1 >= elbowRight.x && handRight.y - 0.2 > elbowRight.y)
                 {
                     rightHandStill = true;
-                    rightHandTime = timeElapsed;
                 }
 
                 if (rightHandStill && handRight.x - 0.2 > elbowRight.x)
