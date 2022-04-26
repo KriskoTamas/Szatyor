@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
 
     private CharacterController controller;
-    private Vector3 direction;
+    private static Vector3 direction;
     private static GameObject player;
     private static Transform playerTransform;
     private static int lane = 1; // 0: left, 1: middle, 2: right
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
         player.gameObject.GetComponent<Animator>().enabled = boolean;
     }
 
-    private void Jump()
+    public static void Jump()
     {
         if (!Game.paused && Game.started)
             direction.y = jumpForce;

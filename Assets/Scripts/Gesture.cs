@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Windows.Kinect;
@@ -8,8 +10,9 @@ public class Gesture : MonoBehaviour
     private KinectSensor sensor;
     private BodyFrameReader bodyReader;
     private static Body[] bodies;
-    private bool leftHandStill = false, rightHandStill = false;
-    private float timeElapsed, leftHandTime, rightHandTime;
+    private bool leftHandStill = false, rightHandStill = false; // for moving sideways
+    private bool jumpStill = false; // for jumping
+    private float timeElapsed;
 
     public static Vector3 GetJointPos(JointType joint)
     {
@@ -24,19 +27,26 @@ public class Gesture : MonoBehaviour
     void Start()
     {
         sensor = KinectSensor.GetDefault();
-        sensor.Open();
-        bodyReader = sensor.BodyFrameSource.OpenReader();
-        bodies = new Body[sensor.BodyFrameSource.BodyCount];
-        bodyReader.FrameArrived += BodyReader_FrameArrived;        
+        if (!Game.inited)
+        {
+            sensor.Open();
+            bodyReader = sensor.BodyFrameSource.OpenReader();
+            bodies = new Body[sensor.BodyFrameSource.BodyCount];
+            bodyReader.FrameArrived += BodyReader_FrameArrived;
+            Game.inited = true;
+        }
     }
     private void Update()
     {
         timeElapsed = Time.fixedTime;
-        if (sensor.IsAvailable)
+        if (sensor != null && sensor.IsAvailable)
         {
             Game.kinectConnected = true;
-            UIManager.handRight.SetActive(true);
-            UIManager.handRightRing.SetActive(true);
+            if (!Game.started || Game.paused)
+            {
+                UIManager.handRight.SetActive(true);
+                UIManager.handRightRing.SetActive(true);
+            }
             UIManager.kinectInfoText.text = "A Kinect csatlakoztatva van";
             UIManager.kinectInfoText.color = new Color(166f/255f, 255f/255f, 77f/255f);
         }
@@ -48,7 +58,6 @@ public class Gesture : MonoBehaviour
             UIManager.kinectInfoText.text = "A Kinect nincsen csatlakoztatva";
             UIManager.kinectInfoText.color = new Color(255f/255f, 128f/255f, 128f/255f);
         }
-        // print("sensor available: " + sensor.IsAvailable);
     }
 
     void BodyReader_FrameArrived(object sender, BodyFrameArrivedEventArgs e)
@@ -57,6 +66,7 @@ public class Gesture : MonoBehaviour
         {
             if (frame != null)
             {
+
                 frame.GetAndRefreshBodyData(bodies);
 
                 Vector3 head = GetJointPos(JointType.Head);
@@ -66,28 +76,24 @@ public class Gesture : MonoBehaviour
                 Vector3 elbowLeft = GetJointPos(JointType.ElbowLeft);
                 Vector3 elbowRight = GetJointPos(JointType.ElbowRight);
 
-                //Vector3 leftFoot = GetJointPos(JointType.FootLeft);
-                //Vector3 rightFoot = GetJointPos(JointType.FootRight);
-                // Vector3 hip = GetJointPos(JointType.SpineBase);
-                // print(hip.z);
-
-                //print(leftFoot + ", " + rightFoot);
-
-                //print("head: " + head.y + " handLeft: " + handLeft.y + " handRight: " + handRight.y);
-                if (Mathf.Abs(handLeft.x - handRight.x) <= 0.1 && Mathf.Abs(handLeft.y - handRight.y) <= 0.1)
+                // Pause Game Gesture //
+                if (handLeft.z + 0.4 < head.z && handRight.z + 0.4 < head.z && Mathf.Abs(handLeft.x - handRight.x) <= 0.1 && Mathf.Abs(handLeft.y - handRight.y) <= 0.1)
                 {
-                    //print("állj!");
                     if (Game.started && !Game.paused)
                         Game.PauseResumeGame();
                 }
-                //print("left: " + handLeft.x + " right: " + handRight.x);
-                //if (handLeft.y > head.y && handRight.y > head.y)
-                //{
-                //    if(Game.started && !Game.paused)
-                //    {
-                //        Game.PauseResumeGame();
-                //    }
-                //}
+
+                // Jump Gesture //
+                if (handLeft.y - 0.05 < head.y && handRight.y - 0.05 < head.y)
+                {
+                    jumpStill = true;
+                }
+
+                if (jumpStill && handLeft.y - 0.15 > head.y && handRight.y - 0.15 > head.y)
+                {
+                    jumpStill = false;
+                    Player.Jump();
+                }
 
                 // Left Hand Gesture //
                 if (handLeft.x + 0.1 >= elbowLeft.x && handLeft.x - 0.1 <= elbowLeft.x && handLeft.y - 0.2 > elbowLeft.y)
@@ -96,14 +102,10 @@ public class Gesture : MonoBehaviour
                     leftHandTime = timeElapsed;
                 }
 
-                if (handLeft.x + 0.2 < elbowLeft.x)
+                if (leftHandStill && handLeft.x + 0.2 < elbowLeft.x)
                 {
-                    if (leftHandStill)
-                    {
-                        print((timeElapsed - leftHandTime) + " s");
-                        leftHandStill = false;
-                        Player.MoveLeft();
-                    }
+                    leftHandStill = false;
+                    Player.MoveLeft();
                 }
 
                 // Right Hand Gesture //
@@ -113,14 +115,10 @@ public class Gesture : MonoBehaviour
                     rightHandTime = timeElapsed;
                 }
 
-                if (handRight.x - 0.2 > elbowRight.x)
+                if (rightHandStill && handRight.x - 0.2 > elbowRight.x)
                 {
-                    if (rightHandStill)
-                    {
-                        print((timeElapsed - rightHandTime) + " s");
-                        rightHandStill = false;
-                        Player.MoveRight();
-                    }
+                    rightHandStill = false;
+                    Player.MoveRight();
                 }
 
             }

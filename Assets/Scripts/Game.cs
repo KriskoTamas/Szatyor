@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     public static bool started, over, paused;
     public static bool kinectConnected = false;
     public static bool playernameInputValid;
+    public static bool inited = false;
 
     public static void StartGame()
     {
