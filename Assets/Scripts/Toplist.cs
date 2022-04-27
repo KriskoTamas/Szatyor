@@ -14,11 +14,6 @@ public class Toplist : MonoBehaviour
         DisplayRecords();
     }
 
-    void Update()
-    {
-
-    }
-
     public static int getHighScore(string playerName)
     {
         if (records == null || playerName == "") return 0;

@@ -70,7 +70,7 @@ public class Player : MonoBehaviour
                 return;
 
             Vector3 diff = targetPosition - transform.position;
-            Vector3 moveDir = diff.normalized * Time.deltaTime * 20;
+            Vector3 moveDir = 20 * Time.deltaTime * diff.normalized;
             if (moveDir.sqrMagnitude < diff.sqrMagnitude)
                 controller.Move(moveDir);
             else
@@ -90,6 +90,16 @@ public class Player : MonoBehaviour
         return playerTransform.position;
     }
 
+    public static Vector3 GetDirection()
+    {
+        return direction;
+    }
+
+    public static int GetLane()
+    {
+        return lane;
+    }
+
     public static int GetDistance()
     {
         return (int) GetPos().z;
@@ -97,7 +107,7 @@ public class Player : MonoBehaviour
 
     public static void SetAnimation(bool boolean)
     {
-        player.gameObject.GetComponent<Animator>().enabled = boolean;
+        player.GetComponent<Animator>().enabled = boolean;
     }
 
     public static void Jump()
@@ -127,7 +137,7 @@ public class Player : MonoBehaviour
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //print("OnControllerColliderHit");
-        if (hit.transform.tag == "Obstacle" && !Game.over)
+        if (hit.transform.CompareTag("Obstacle") && !Game.over)
         {
             Game.GameOver();
         }

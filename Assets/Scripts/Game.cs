@@ -35,6 +35,7 @@ public class Game : MonoBehaviour
         gameOverPanel.SetActive(true);
         Player.SetAnimation(false);
         Player.forwardSpeed = 0;
+        Skeleton.SetAnimation(false);
 
         RecordList.Record record = Toplist.records.elements.Find(x => x.playerName == Player.playerName);
         int idx = Toplist.records.elements.IndexOf(record);
@@ -81,6 +82,7 @@ public class Game : MonoBehaviour
                 handRightRing.SetActive(kinectConnected);
                 Player.SetAnimation(false);
                 Player.forwardSpeed = 0;
+                Skeleton.SetAnimation(false);
                 gamePausePanel.SetActive(true);
             }
             else
@@ -89,6 +91,7 @@ public class Game : MonoBehaviour
                 handRightRing.SetActive(false);
                 Player.SetAnimation(true);
                 Player.forwardSpeed = Player.defaultSpeed;
+                Skeleton.SetAnimation(true);
                 gamePausePanel.SetActive(false);
             }
         }

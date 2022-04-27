@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1270621989189382364}
   - component: {fileID: 1270621989188055292}
   - component: {fileID: 1270621989187088956}
+  - component: {fileID: 7293834751341372170}
   m_Layer: 0
   m_Name: PT_Medieval_Wooden_Cross_03
   m_TagString: Obstacle
@@ -81,3 +82,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &7293834751341372170
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270621989189020924}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: ac90ef2d1ec148541ad029c9f985d187, type: 3}

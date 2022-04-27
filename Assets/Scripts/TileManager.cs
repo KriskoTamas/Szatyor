@@ -13,7 +13,7 @@ public class TileManager : MonoBehaviour
 
     void Start()
     {
-        initTiles();
+        InitTiles();
     }
 
     void Update()
@@ -26,7 +26,7 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    public void initTiles()
+    public void InitTiles()
     {
         for (int i = 0; i < numberOfTiles; i++)
         {
