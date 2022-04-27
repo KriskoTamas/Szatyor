@@ -27,12 +27,12 @@
 <ul> 
   <li>A programnak meg kell jelenítenie az adott pillanatig megtett távot méterben.</li>
   <li>A programnak meg kell jelenítenie az fps-t (frame/second).</li>
-  <li>A programnak képes legyen a játékos mozgásait felismerni, ezzel irányítva a játékot.</li>
+  <li>A program képes legyen a játékos mozgásait felismerni, ezzel irányítva a játékot.</li>
   <li>A programba lehessen játékos nevet beírni. </li>
   <li>A programnak tudnia kell eltárolni az adott játékos általt elért eredményt.</li>
   <li>A programból ki tudjon lépni a játékos.</li>
   <li>A program jelezze ki a Kinect csatlakozásának állapotát.</li>
-  <li>A programot lehessen elindítani illetve megállítani játék közbe./li>
+  <li>A programot lehessen elindítani illetve megállítani játék közbe.</li>
 </ul>
 <h3>Nem funkcionális követelmények</h3>
 <ul>     
