@@ -1562,9 +1562,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiles:
-  - {fileID: 5880018040684736958, guid: 4ce20e6150374534693fcaf97b98972a, type: 3}
-  tileForest: {fileID: 0}
-  zSpawn: 0
+  - {fileID: 9110970005247698818, guid: f9c04073bce7681468433e6a16edfa91, type: 3}
+  tileForest: {fileID: 1252446645168888159, guid: a841e604c2e7d3040bee5199755dfbb2, type: 3}
+  zSpawn: 15
 --- !u!1 &432604721
 GameObject:
   m_ObjectHideFlags: 0
