@@ -5,14 +5,15 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     public static bool showMainPage = true;
+    public static KinectInputModule kinectInputModule;
     public static GameObject mainMenuPanel, toplistPanel, gameOverlayPanel, gameOverPanel, gamePausePanel;
     public static GameObject handRight, handRightRing;
+    public static TextMeshProUGUI distanceText, scoreText, highScoreText, finalScoreText, framerateText;
+    public static Text kinectInfoText;
     public static Button playButton;
     public static InputField playernameInput;
     public static Transform toplistView;
-    public static TextMeshProUGUI distanceText, scoreText, highScoreText, finalScoreText, framerateText;
-    public static Text kinectInfoText;
-    public static KinectInputModule kinectInputModule;
+    private static bool textboxIsFocused = false;
 
     private int frameCount = 0;
     private float timeCount = 0;
@@ -41,7 +42,7 @@ public class UIManager : MonoBehaviour
         kinectInputModule = GameObject.Find("EventSystem").GetComponent<KinectInputModule>();
 
         var ev = new InputField.OnChangeEvent();
-        ev.AddListener(SubmitName);
+        ev.AddListener(TextboxValueChanged);
         playernameInput.onValueChanged = ev;
 
         Player.highscore = Toplist.getHighScore(Player.playerName);
@@ -50,7 +51,7 @@ public class UIManager : MonoBehaviour
         handRight = canvas.transform.Find("HandRight").gameObject;
         handRightRing = canvas.transform.Find("HandRightRing").gameObject;
 
-        playernameInput.text = Player.playerName;
+        playernameInput.text = PlayerPrefs.HasKey("PlayerName") ? PlayerPrefs.GetString("PlayerName") : Player.playerName;
         mainMenuPanel.SetActive(showMainPage);
         gameOverlayPanel.SetActive(!showMainPage);
         Game.started = !showMainPage;
@@ -58,9 +59,9 @@ public class UIManager : MonoBehaviour
         Game.paused = false;
     }
 
-    private void SubmitName(string playerName)
+    private void TextboxValueChanged(string value)
     {
-        if (playerName == "")
+        if (value == "")
         {
             Game.playernameInputValid = false;
             playButton.interactable = false;
@@ -82,7 +83,7 @@ public class UIManager : MonoBehaviour
 
         if (!playernameInput.isFocused)
         {
-            kinectInputModule.enabled = true;
+            kinectInputModule.enabled = Game.kinectConnected;
 
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
             {
@@ -124,10 +125,18 @@ public class UIManager : MonoBehaviour
             {
                 Game.ToplistMenu();
             }
+
+            if (textboxIsFocused && !Input.GetKeyDown(KeyCode.Escape))
+            {
+                PlayerPrefs.SetString("PlayerName", playernameInput.text);
+            }
+
+            textboxIsFocused = false;
         }
         else
         {
             kinectInputModule.enabled = false;
+            textboxIsFocused = true;
         }
 
         if (!Game.paused && !Game.over)

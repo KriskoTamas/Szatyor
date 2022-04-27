@@ -1,19 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!64 &3376112895373142441
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9148218878498974982}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -257278029260952120, guid: 9452ace81bbfd944ba9b66e69681de13, type: 3}
 --- !u!1001 &28740518383760434
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3568,7 +3554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8541266619916980104, guid: d53a0e18550439f4896998c134ae81d5, type: 3}
       propertyPath: m_Name
-      value: jo
+      value: TileGate1
       objectReference: {fileID: 0}
     - target: {fileID: 8608745240837752502, guid: d53a0e18550439f4896998c134ae81d5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5040,6 +5026,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate_Desert_Big_0_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9452ace81bbfd944ba9b66e69681de13, type: 3}
+      propertyPath: m_TagString
+      value: Obstacle
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9452ace81bbfd944ba9b66e69681de13, type: 3}
 --- !u!1 &9148218878498974982 stripped
@@ -5047,6 +5037,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9452ace81bbfd944ba9b66e69681de13, type: 3}
   m_PrefabInstance: {fileID: 8229318177616105559}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &3376112895373142441
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9148218878498974982}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -257278029260952120, guid: 9452ace81bbfd944ba9b66e69681de13, type: 3}
 --- !u!1001 &8282187595520763366
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -38,7 +38,6 @@ public class Gesture : MonoBehaviour
         if (sensor != null && sensor.IsAvailable)
         {
             Game.kinectConnected = true;
-            UIManager.kinectInputModule.enabled = true;
             if (!Game.started || Game.paused)
             {
                 UIManager.handRight.SetActive(true);
@@ -50,7 +49,6 @@ public class Gesture : MonoBehaviour
         else
         {
             Game.kinectConnected = false;
-            UIManager.kinectInputModule.enabled = false;
             UIManager.handRight.SetActive(false);
             UIManager.handRightRing.SetActive(false);
             UIManager.kinectInfoText.text = "A Kinect nincsen csatlakoztatva";

@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     private static Transform playerTransform;
     private static int lane = 1; // 0: left, 1: middle, 2: right
     public static float forwardSpeed;
-    public static string playerName = "Jozsi";
+    public static string playerName = "Player";
 
     public static int score = 0, highscore = 0;
 
@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
         player = GameObject.Find("Player");
         playerTransform = player.transform;
         forwardSpeed = defaultSpeed;
+        lane = 1;
     }
 
     void Update()
