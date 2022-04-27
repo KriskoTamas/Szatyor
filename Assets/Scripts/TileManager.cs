@@ -4,6 +4,7 @@ using UnityEngine;
 public class TileManager : MonoBehaviour
 {
     public GameObject[] tiles;
+    public GameObject tileForest;
     public float zSpawn = 0;
     public static float tileLength = 15;
     private static readonly int numberOfTiles = 8;
@@ -18,8 +19,10 @@ public class TileManager : MonoBehaviour
     void Update()
     {
         if (Player.GetPos().z - tileLength > zSpawn - (numberOfTiles * tileLength)){
-            SpawnTile(Random.Range(0, tiles.Length));
+            SpawnTile(tiles[Random.Range(0, tiles.Length)]);
+            SpawnForest();
             DeleteTile();
+            zSpawn += tileLength;
         }
     }
 
@@ -27,15 +30,25 @@ public class TileManager : MonoBehaviour
     {
         for (int i = 0; i < numberOfTiles; i++)
         {
-            SpawnTile(Random.Range(0, tiles.Length));
+            SpawnTile(tiles[Random.Range(0, tiles.Length)]);
+            SpawnForest();
+            zSpawn += tileLength;
         }
     }
 
-    public void SpawnTile(int tileIndex)
+    public void SpawnTile(GameObject tile)
     {
-        GameObject obj = Instantiate(tiles[tileIndex], transform.forward * zSpawn, transform.rotation);
+        GameObject obj = Instantiate(tile, transform.forward * zSpawn, transform.rotation);
         activeTiles.Add(obj);
-        zSpawn += tileLength;
+    }
+
+    public void SpawnForest()
+    {
+        Vector3 pos = transform.forward * zSpawn;
+        GameObject obj = Instantiate(tileForest, pos - new Vector3(15, 0, 0), transform.rotation);
+        activeTiles.Add(obj);
+        obj = Instantiate(tileForest, pos - new Vector3(-15, 0, 0), transform.rotation);
+        activeTiles.Add(obj);
     }
 
     public void DeleteTile()

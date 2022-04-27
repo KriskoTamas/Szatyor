@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4870204933709518}
   - component: {fileID: 33933261752202624}
   - component: {fileID: 23109063448187470}
+  - component: {fileID: 9208321869324733898}
   m_Layer: 0
   m_Name: LowPoly - FirTree B
   m_TagString: Obstacle
@@ -82,3 +83,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &9208321869324733898
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593950697155818}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 769d335a9d1fc3948bfb71adea34202c, type: 3}

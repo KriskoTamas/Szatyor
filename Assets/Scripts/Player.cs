@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public static int score = 0, highscore = 0;
 
     // Constant values //
-    public const float defaultSpeed = 4;
+    public const float defaultSpeed = 5;
     public const float gravity = -40;
     public const float jumpForce = 14;
     public const float laneDistance = 4.5f;

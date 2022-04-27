@@ -1533,6 +1533,7 @@ MonoBehaviour:
   - {fileID: 2567571875982254658, guid: 2f3806c7b62c66b489f026d57c1856a6, type: 3}
   - {fileID: 5880018040684736958, guid: 9f774a0b5aab6b14bbc5c13d122f2fe5, type: 3}
   - {fileID: 2567571875982254658, guid: 869937c2893c8094db9b08e40a4e918e, type: 3}
+  tileForest: {fileID: 1252446645168888159, guid: a841e604c2e7d3040bee5199755dfbb2, type: 3}
   zSpawn: 15
 --- !u!4 &409632778
 Transform:
@@ -1562,6 +1563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tiles:
   - {fileID: 5880018040684736958, guid: 4ce20e6150374534693fcaf97b98972a, type: 3}
+  tileForest: {fileID: 0}
   zSpawn: 0
 --- !u!1 &432604721
 GameObject:
