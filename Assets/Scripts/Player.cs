@@ -4,9 +4,9 @@ public class Player : MonoBehaviour
 {
 
     private CharacterController controller;
-    private static Vector3 direction;
-    private static GameObject player;
     private static Transform playerTransform;
+    private static GameObject player;
+    private static Vector3 direction;
     private static int lane = 1; // 0: left, 1: middle, 2: right
     public static float forwardSpeed;
     public static string playerName = "Player";
