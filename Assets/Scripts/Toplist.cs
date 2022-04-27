@@ -23,7 +23,7 @@ public class Toplist : MonoBehaviour
     {
         if (records == null || playerName == "") return 0;
         RecordList.Record record = records.elements.Find(x => x.playerName == playerName);
-        if(record == null) return 0;
+        if (record == null) return 0;
         return record.highScore;
     }
 

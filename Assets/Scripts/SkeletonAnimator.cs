@@ -17,7 +17,7 @@ public class SkeletonAnimator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //animator.Play("Metarig|metarig Action");
-            if(animator.gameObject.GetComponent<Animator>().enabled)
+            if (animator.gameObject.GetComponent<Animator>().enabled)
                 animator.gameObject.GetComponent<Animator>().enabled = false;
             else
                 animator.gameObject.GetComponent<Animator>().enabled = true;

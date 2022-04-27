@@ -43,7 +43,7 @@ public class Game : MonoBehaviour
         if (record != null)
         {
             highscore = record.highScore;
-            if(Player.score > highscore)
+            if (Player.score > highscore)
             {
                 highscore = Player.score;
                 Toplist.records.elements[idx].highScore = highscore;

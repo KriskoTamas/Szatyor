@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
 
     public static Vector3 GetPos()
     {
-        if(playerTransform == null) return Vector3.zero;
+        if (playerTransform == null) return Vector3.zero;
         return playerTransform.position;
     }
 

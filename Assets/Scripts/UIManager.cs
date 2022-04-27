@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor;
 
 public class UIManager : MonoBehaviour
 {
@@ -13,6 +12,7 @@ public class UIManager : MonoBehaviour
     public static Transform toplistView;
     public static TextMeshProUGUI distanceText, scoreText, highScoreText, finalScoreText, framerateText;
     public static Text kinectInfoText;
+    public static KinectInputModule kinectInputModule;
 
     private int frameCount = 0;
     private float timeCount = 0;
@@ -21,11 +21,13 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         GameObject canvas = GameObject.Find("Canvas");
+
         mainMenuPanel = canvas.transform.Find("MainMenuPanel").gameObject;
         toplistPanel = canvas.transform.Find("ToplistPanel").gameObject;
         gameOverlayPanel = canvas.transform.Find("GameOverlayPanel").gameObject;
         gamePausePanel = canvas.transform.Find("GamePausePanel").gameObject;
         gameOverPanel = canvas.transform.Find("GameOverPanel").gameObject;
+
         playButton = mainMenuPanel.transform.Find("ButtonGrid").transform.Find("PlayButton").gameObject.GetComponent<Button>();
         kinectInfoText = mainMenuPanel.transform.Find("KinectInfoText").GetComponent<Text>();
         distanceText = gameOverlayPanel.transform.Find("DistanceText").GetComponent<TextMeshProUGUI>();
@@ -35,6 +37,9 @@ public class UIManager : MonoBehaviour
         framerateText = gameOverlayPanel.transform.Find("FramerateText").GetComponent<TextMeshProUGUI>();
         toplistView = toplistPanel.transform.Find("Scroll View").transform.Find("Viewport").transform.Find("Content");
         playernameInput = mainMenuPanel.transform.Find("PlayernameInput").gameObject.GetComponent<InputField>();
+
+        kinectInputModule = GameObject.Find("EventSystem").GetComponent<KinectInputModule>();
+
         var ev = new InputField.OnChangeEvent();
         ev.AddListener(SubmitName);
         playernameInput.onValueChanged = ev;
@@ -55,7 +60,7 @@ public class UIManager : MonoBehaviour
 
     private void SubmitName(string playerName)
     {
-        if(playerName == "")
+        if (playerName == "")
         {
             Game.playernameInputValid = false;
             playButton.interactable = false;
@@ -77,6 +82,8 @@ public class UIManager : MonoBehaviour
 
         if (!playernameInput.isFocused)
         {
+            kinectInputModule.enabled = true;
+
             if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
             {
                 Game.PauseResumeGame();
@@ -90,6 +97,7 @@ public class UIManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.N))
             {
+                kinectInputModule.enabled = false;
                 playernameInput.Select();
                 playernameInput.ActivateInputField();
             }
@@ -101,7 +109,7 @@ public class UIManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.S) && Game.playernameInputValid)
             {
-                if(Game.over)
+                if (Game.over)
                     Game.ReplayGame();
                 else
                     Game.StartGame();
@@ -116,6 +124,10 @@ public class UIManager : MonoBehaviour
             {
                 Game.ToplistMenu();
             }
+        }
+        else
+        {
+            kinectInputModule.enabled = false;
         }
 
         if (!Game.paused && !Game.over)
