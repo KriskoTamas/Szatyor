@@ -18,6 +18,7 @@
 </ul>
 
 <h2>📖 A játék története</h2>
+<p>Egy Bandita miután betört egy elátkozott házba, az átok utolérte és feltámadt a háznak a tulajdonosa, akit ott temettek el. Ezután a ház tulajdonosa megszállottan elkezdte üldözni a banditát, és addig nem áll meg míg el nem kapja</p>
 
 <h2>🕹 A játék menete</h2>
 <p>A játék során egy csontváz karakter elől kell elfutni, miközben különféle akadályokat kell leküzdeni. A játék addig megy, amíg el nem rontunk egy akadályt, tehát nem lehet kivinni egy pályát, hiszen a végtelenségig megy.</p>
